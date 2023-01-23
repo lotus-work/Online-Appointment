@@ -1,0 +1,11 @@
+i{
+    margin-right: 10px;
+}
+
+
+@media screen and (max-width: 991px) {
+  .logo  img{
+        width: 100%;
+    }
+    
+  }
