@@ -21,6 +21,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { GoogleCalendarIntregrationComponent } from './components/google-calendar-intregration/google-calendar-intregration.component';
 import { ImgurApiService } from "./components/settings/imgur-api.service";
+import { EditAvailabilityComponent } from './components/edit-availability/edit-availability.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ImgurApiService } from "./components/settings/imgur-api.service";
     SettingsComponent,
     BookingsComponent,
     AvailabilityComponent,
-    GoogleCalendarIntregrationComponent
+    GoogleCalendarIntregrationComponent,
+    EditAvailabilityComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,17 @@
+
+.bg-light{
+    padding-bottom: 20px;
+}
+.icon-white-circle i{
+    margin-right: 10px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(52, 52, 52);
+    padding: 20px;
+    border-radius: 50%;
+    font-size: 40px;
+}
+
+.direct-link{
+    text-decoration: none;
+    color: black;
+}

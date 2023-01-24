@@ -14,7 +14,8 @@
                           <input type="email" name="emailAdderss"  #emailAdderssRef="ngModel"  class="form-control "  ngModel required>
                           <div *ngIf="emailAdderssRef.errors && (emailAdderssRef.dirty || emailAdderssRef.touched)" style="text-align:left; color:red;">
                             <div [hidden]="!emailAdderssRef.errors">
-                              <p>&nbsp;E-Mail is mandatory</p>
+                              <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+           
                             </div>
                           </div>
                         </div>
@@ -23,7 +24,8 @@
                           <input type="password"name="password"   #passwordRef="ngModel"  class="form-control "  ngModel required >
                           <div *ngIf="passwordRef.errors && (passwordRef.dirty || passwordRef.touched)" style="text-align:left; color:red;">
                             <div [hidden]="!passwordRef.errors">
-                              <p>&nbsp;Password is mandatory</p>
+                              <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+           
                             </div>
                           </div>
                       </div>

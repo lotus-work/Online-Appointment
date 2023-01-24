@@ -1,16 +1,131 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IAvailibility } from 'src/app/interface/availibility';
 import { AvailibilityService } from 'src/app/services/availibility/availibility.service';
 
 @Component({
-  selector: 'app-availability',
-  templateUrl: './availability.component.html',
-  styleUrls: ['./availability.component.css']
+  selector: 'app-edit-availability',
+  templateUrl: './edit-availability.component.html',
+  styleUrls: ['./edit-availability.component.css']
 })
-export class AvailabilityComponent {
+export class EditAvailabilityComponent {
+
+  incre: number = 0;
+  fruits: any[] = [];
+  vegs: any[] = [];
+
+  // locationArr = [
+  //   { id: 1, label: "Zoom", status: "false" },
+  //   { id: 2, label: "Google Meet", status: "false" },
+  //   { id: 3, label: "Microsoft Teams", status: "false" }
+  // ];
+
+
+  locationArr = [
+    { id: 2, label: "Google Meet", status: "false" }
+  ];
+
+  str = [
+    {
+      id: 1,
+      aria_controls: 'panelsStayOpen-collapseOne',
+      arial_abelledby: 'panelsStayOpen-headingOne',
+      week_name: 'Monday',
+      status: true,
+      available_timings: [
+        {
+          id: 1,
+          start_time: '09:00 AM',
+          end_time: '17:00 PM'
+        }
+      ]
+    },
+
+    {
+      id: 2,
+      aria_controls: 'panelsStayOpen-collapseTwo',
+      arial_abelledby: 'panelsStayOpen-headingTwo',
+      week_name: 'Tuesday',
+      status: true,
+      available_timings: [
+        {
+          id: 1,
+          start_time: '09:00 AM',
+          end_time: '17:00 PM'
+        }
+      ]
+    },
+    {
+      id: 3,
+      aria_controls: 'panelsStayOpen-collapseThree',
+      arial_abelledby: 'panelsStayOpen-headingThree',
+      week_name: 'Wednesday',
+      status: true,
+      available_timings: [
+        {
+          id: 1,
+          start_time: '09:00 AM',
+          end_time: '17:00 PM'
+        }
+      ]
+    },
+    {
+      id: 4,
+      aria_controls: 'panelsStayOpen-collapseFour',
+      arial_abelledby: 'panelsStayOpen-headingFour',
+      week_name: 'Thursday',
+      status: true,
+      available_timings: [
+        {
+          id: 1,
+          start_time: '09:00 AM',
+          end_time: '17:00 PM'
+        }
+      ]
+    },
+    {
+      id: 5,
+      aria_controls: 'panelsStayOpen-collapseFive',
+      arial_abelledby: 'panelsStayOpen-headingFive',
+      week_name: 'Friday',
+      status: true,
+      available_timings: [
+        {
+          id: 1,
+          start_time: '09:00 AM',
+          end_time: '17:00 PM'
+        }
+      ]
+    },
+    {
+      id: 6,
+      aria_controls: 'panelsStayOpen-collapseSix',
+      arial_abelledby: 'panelsStayOpen-headingSix',
+      week_name: 'Saturday',
+      status: true,
+      available_timings: [
+        {
+          id: 1,
+          start_time: '09:00 AM',
+          end_time: '17:00 PM'
+        }
+      ]
+    },
+    {
+      id: 7,
+      aria_controls: 'panelsStayOpen-collapseSeven',
+      arial_abelledby: 'panelsStayOpen-headingSeven',
+      week_name: 'Sunday',
+      status: false,
+      available_timings: [
+
+      ]
+    }
+  ];
+
   timeZoneArr = [
     { "label": "(GMT-12:00) International Date Line West", "value": "Etc/GMT+12", status: "false" },
     { "label": "(GMT-11:00) Midway Island, Samoa", "value": "Pacific/Midway", status: "false" },
@@ -93,88 +208,76 @@ export class AvailabilityComponent {
     { "label": "(GMT+12:00) Auckland, Wellington", "value": "Pacific/Auckland", status: "false" },
     { "label": "(GMT+12:00) Fiji, Kamchatka, Marshall Is.", "value": "Pacific/Fiji", status: "false" },
     { "label": "(GMT+13:00) Nuku'alofa", "value": "Pacific/Tongatapu", status: "false" }
-  ];
+  ]
 
+  availDetails: IAvailibility[] = [];
 
-  tempavaibility: IAvailibility[] = [];
   avaibility: any;
-  status: any ;
+  status: any;
   errMsg!: string;
   userId: string | null;
-  // userToken: string | null;
-  constructor(private spinner: NgxSpinnerService, private _availServices: AvailibilityService, private _toast: NgToastService) {
+  availIdParams: string;
+
+
+
+  constructor(private spinner: NgxSpinnerService, private _availServices: AvailibilityService, private _toast: NgToastService, private route: ActivatedRoute) {
 
     this.userId = String(localStorage.getItem('_id'));
+
+    const routeParams = this.route.snapshot.paramMap;
+    this.availIdParams = String(routeParams.get('id'));
   }
 
   ngOnInit(): void {
-    this.getAllAvaibility();
+    this.getAvailDetails();
   }
 
-  getAllAvaibility() {
+  getAvailDetails() {
     this.spinner.show();
 
-    this._availServices.getAllAvaibility(String(this.userId)).subscribe(
+    this._availServices.getAvailById(String(this.userId), this.availIdParams).subscribe(
       res => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */
           this.spinner.hide();
         }, 1000);
-        this.tempavaibility = res;
-        console.log(this.tempavaibility);
+        this.availDetails = res;
+        console.log(this.availDetails);
+        this.str = eval(this.availDetails[0].weeksAvailability);
+        console.log(this.str);
+        // CheckBox Pre Check
+
+        // Setting timezone from db to frontend
+        for (var i = 0; i < this.timeZoneArr.length; i++) {
+          if (this.timeZoneArr[i].value == this.availDetails[0].timezone) {
+            this.timeZoneArr[i].status = "true";
+          }
+        }
 
       }, err => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */
           this.spinner.hide();
         }, 1000);
-        this.tempavaibility = [];
+        this.availDetails = [];
         this.errMsg = err;
         console.log(this.errMsg)
-      }, () => console.log("Get All Avaibility method excuted successfully"))
+      }, () => console.log("Get Schedule By ID method excuted successfully"))
   }
 
-  addNewAvailFunc(form: NgForm) {
+  updateAvailDetails(updateForm: NgForm) {
     this.spinner.show();
+
+    console.log(updateForm.value.availabilityName);
+
 
     var getTimezoneVal = document.getElementById("timezone") as HTMLInputElement;
     var timezoneVal = getTimezoneVal.value;
     console.log(timezoneVal);
-    console.log(form.value);
 
+    let weekAvailToString = JSON.stringify(this.str);
 
-    this._availServices.addNewScheduleAvail(form.value.availabilityName, String(this.userId), timezoneVal).subscribe(
-      res => {
-        setTimeout(() => {
-          /** spinner ends after 5 seconds */
-          this.spinner.hide();
-        }, 1000);
-        this.status = res;
-        if (this.status[0].success == true) {
-          this._toast.success({ detail: "SUCCESS", summary: 'New Schedule has been added', position: 'br' });
-          setTimeout(function () {
-            window.location.reload();
-          }, 2000);
-        }
-        else {
-          this._toast.warning({ detail: "FAILED", summary: 'Unable to add new schedule', position: 'br' });
-          setTimeout(function () {
-            window.location.reload();
-          }, 2000);
-        }
-      },
-      err => {
-        setTimeout(() => {
-          /** spinner ends after 5 seconds */
-          this.spinner.hide();
-        }, 1000);
-        this._toast.warning({ detail: " FAILED", summary: 'Please try after sometime', position: 'br' });
-      }, () => console.log("Add New Schedule method excuted successfully"))
-  }
-
-  deleteSchedule(scheduleId: string) {
-    this.spinner.show();
-    this._availServices.deleteScheduleById(String(this.userId), scheduleId).subscribe(
+    this._availServices.updateAvail(this.availIdParams, updateForm.value.availabilityName, String(this.userId), timezoneVal, weekAvailToString).subscribe(
       res => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */
@@ -182,16 +285,10 @@ export class AvailabilityComponent {
         }, 1000);
         this.status = res;
         if (this.status == true) {
-          this._toast.success({ detail: "DELETE SUCCESS", summary: 'The Schedule has been deleted', position: 'br' });
-          setTimeout(function () {
-            window.location.reload();
-          }, 2000);
+          this._toast.success({ detail: "UPDATE SUCCESS", summary: 'Schedule has been updated', position: 'br' });
         }
         else {
-          this._toast.warning({ detail: "DELETE FAILED", summary: 'Unable to delete the Schedule', position: 'br' });
-          setTimeout(function () {
-            window.location.reload();
-          }, 2000);
+          this._toast.warning({ detail: "UPDATE FAILED", summary: 'Unable to update schedule', position: 'br' });
         }
 
       },
@@ -200,14 +297,147 @@ export class AvailabilityComponent {
           /** spinner ends after 5 seconds */
           this.spinner.hide();
         }, 1000);
-        this.errMsg = err;
-        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
-
-        setTimeout(function () {
-          window.location.reload();
-        }, 2000);
+        this._toast.warning({ detail: " FAILED", summary: 'Please try after sometime', position: 'br' });
+        // setTimeout(function () {
+        //   window.location.reload();
+        // }, 2000);
       },
-      () => console.log("Delete Schedule method excuted successfully"))
+      () => console.log("Update Availability method excuted successfully")
+
+    )
+
   }
 
+
+
+  myFunction(week_id: number) {
+    const ele = document.querySelector("#myCheck" + week_id) as HTMLInputElement;
+    const onCheck = document.getElementById("onCheck") as HTMLAnchorElement;
+    const offCheck = document.getElementById("offCheck") as HTMLAnchorElement;
+
+    var currentLengthAvailTime = this.str[week_id - 1].available_timings.length;
+    console.log(ele.checked);
+    if (ele.checked == true) {
+      if (currentLengthAvailTime == 0) {
+        var res = {
+          id: (currentLengthAvailTime + 1),
+          start_time: '09:00 AM',
+          end_time: '17:00 PM'
+        };
+        this.str[week_id - 1].available_timings.push(res);
+      }
+      else {
+        this.str[week_id - 1].status = false;
+      }
+
+    }
+    else {
+      this.str[week_id - 1].status = false;
+      this.str[week_id - 1].available_timings.splice(0, currentLengthAvailTime)
+    }
+
+
+  }
+  addTime(id: number) {
+
+    console.log(id);
+    console.log(this.str[id - 1]);
+
+    console.log(this.str[id - 1].available_timings.length);
+    var currentLengthAvailTime = this.str[id - 1].available_timings.length;
+
+    const startTime = document.querySelector("#start_date" + id) as HTMLInputElement;
+    const endTime = document.querySelector("#end_date" + id) as HTMLInputElement;
+    console.log(startTime.value + endTime.value);
+    var res = {
+      id: (currentLengthAvailTime + 1),
+      start_time: startTime.value,
+      end_time: endTime.value
+    };
+    this.str[id - 1].available_timings.push(res);
+  }
+
+  removeTimings(week_id: number, availTime_id: number) {
+    console.log(week_id + " " + availTime_id);
+
+    for (var i = 0; i < this.str.length; i++) {
+      if (this.str[i].id == week_id) {
+
+        for (var j = 0; j < this.str[i].available_timings.length; j++) {
+          if (this.str[i].available_timings[j].id == availTime_id) {
+            this.str[i].available_timings.splice(j, 1);
+          }
+        }
+      }
+    }
+
+  }
+
+
+
+  // createSlots() {
+  //   var slotConfig = {
+  //     "configSlotHours": "0",
+  //     "configSlotMinutes": "35",
+  //     "configSlotPreparation": "0",
+  //     "timeArr": [
+  //       { "startTime": "09:00", "endTime": "11:00" },
+  //       { "startTime": "10:30", "endTime": "10:45" }
+  //     ]
+  //   }
+  //   // Getting values from slotConfig using destructuring
+  //   const { configSlotHours, configSlotMinutes, configSlotPreparation, timeArr } = slotConfig;
+
+  //   let defaultDate = new Date().toISOString().substring(0, 10)
+  //   let slotsArray = []
+  //   let _timeArrStartTime;
+  //   let _timeArrEndTime;
+  //   let _tempSlotStartTime;
+  //   let _endSlot: any;
+  //   let _startSlot;
+
+  //   // Loop over timeArr
+  //   for (var i = 0; i < timeArr.length; i++) {
+
+  //     // Creating time stamp using time from timeArr and default date
+  //     _timeArrStartTime = (new Date(defaultDate + " " + timeArr[i].startTime)).getTime();
+  //     _timeArrEndTime = (new Date(defaultDate + " " + timeArr[i].endTime)).getTime();
+  //     _tempSlotStartTime = _timeArrStartTime;
+
+  //     // Loop around till _tempSlotStartTime is less end time from timeArr
+  //     while ((new Date(_tempSlotStartTime)).getTime() < (new Date(_timeArrEndTime)).getTime()) {
+
+  //       _endSlot = new Date(_tempSlotStartTime);
+  //       _startSlot = new Date(_tempSlotStartTime);
+
+  //       //Adding minutes and hours from config to create slot and overiding the value of _tempSlotStartTime
+  //       _tempSlotStartTime = _endSlot.setHours(parseInt(_endSlot.getHours()) + parseInt(configSlotHours));
+  //       _tempSlotStartTime = _endSlot.setMinutes(parseInt(_endSlot.getMinutes()) + parseInt(configSlotMinutes));
+
+  //       // Check _tempSlotStartTime is less than end time after adding minutes and hours, if true push into slotsArr
+  //       if (((new Date(_tempSlotStartTime)).getTime() <= (new Date(_timeArrEndTime)).getTime())) {
+
+  //         // DateTime object is converted to time with the help of javascript functions
+  //         // If you want 24 hour format you can pass hour12 false
+  //         slotsArray.push({
+  //           "timeSlotStart": new Date(_startSlot).toLocaleTimeString('en-US', {
+  //             hour: 'numeric',
+  //             minute: 'numeric',
+  //             hour12: true
+  //           }),
+  //           "timeSlotEnd": _endSlot.toLocaleTimeString('en-US', {
+  //             hour: 'numeric',
+  //             minute: 'numeric',
+  //             hour12: true
+  //           })
+  //         });
+  //       }
+
+  //       //preparation time is added in last to maintain the break period
+  //       _tempSlotStartTime = _endSlot.setMinutes(_endSlot.getMinutes() + parseInt(configSlotPreparation));
+  //     }
+  //   }
+
+  //   return slotsArray;
+  // }
 }
