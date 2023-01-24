@@ -4,6 +4,7 @@ import { AvailabilityComponent } from './components/availability/availability.co
 import { BookingsComponent } from './components/bookings/bookings.component';
 import { EditEventTypeComponent } from './components/edit-event-type/edit-event-type.component';
 import { EventTypesComponent } from './components/event-types/event-types.component';
+import { GoogleCalendarIntregrationComponent } from './components/google-calendar-intregration/google-calendar-intregration.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { SendResetPasswordMailComponent } from './components/send-reset-password-mail/send-reset-password-mail.component';
@@ -13,6 +14,7 @@ import { SignupComponent } from './components/signup/signup.component';
 const routes: Routes = [
   
   {path:'', component: HomeComponent},
+  {path:'home', component: HomeComponent},
   {path:'signin', component: LoginComponent},
   {path:'signup', component: SignupComponent},
   {path:'reset-password', component: SendResetPasswordMailComponent},
@@ -21,7 +23,7 @@ const routes: Routes = [
   {path:'availability', component: AvailabilityComponent},
   {path:'settings', component: SettingsComponent},
   {path:'bookings', component: BookingsComponent},
-  
+  {path: 'calendar-intregration', component: GoogleCalendarIntregrationComponent},
 ];
 
 @NgModule({

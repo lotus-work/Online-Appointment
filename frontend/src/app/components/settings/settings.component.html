@@ -1,1 +1,124 @@
-<p>settings works!</p>
+<app-navbar></app-navbar>
+
+<div class="container bg-light">
+  
+    <div class="row p-2 p-md-3 mt-2 text-white rounded bg-blueClr">
+      <div class="col-md-12">
+        <h1 class="fw-bold">Profile</h1>
+      </div>
+    </div>
+    <div class="row p-2 p-md-3 ">
+      <div class="col-md-12">
+        <p class="">Edit your profile information, which shows on your scheduling link and as well as
+          manage your subscription.</p>
+      </div>
+      <div class="col-md-12">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+              role="tab" aria-controls="home" aria-selected="true">Profile
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+              role="tab" aria-controls="profile" aria-selected="false">Billing </button>
+          </li>
+  
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div>
+              <div class="mt-4 py-2">
+                <h4>Edit Your information</h4>
+              </div>
+              <div class="col-sm-6 upload-img py-2 mb-3">
+                <div *ngIf="user[0].profilePicture !=null; else elseBlock">
+                  <img src="{{userProfilePicture}}" class="img-thumbnail rounded-circle" alt="" class="pb-2">
+                </div>
+                <ng-template #elseBlock>
+                  <img src="../../../assets/images/default-user.png" class="img-thumbnail rounded float-start rounded-circle" alt="" class="pb-2">
+              
+                </ng-template>
+                <br/>
+                <input type="file"  (input)="onInput($event)"  accept=".png, .jpg, .jpeg"/>
+             
+              </div>
+            
+              <form  #updateForm="ngForm" (ngSubmit)="updateUserData(updateForm)" class="needs-validation" novalidate="">
+                <div class="row g-3">
+                  <div class="col-sm-6">
+                    <label for="username" class="form-label">Username</label>
+                    <div class="input-group has-validation">
+                      <span class="input-group-text">requesttalk.netlify.app/</span>
+                      <input type="text" class="form-control" name="username"  [(ngModel)]="user[0].username" readonly>
+                     
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-6">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" name="fullName"  [(ngModel)]="user[0].fullName">
+                    
+                  </div>
+  
+                  <div class="col-sm-6">
+                    <label for="emailAddress" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="emailAddress"  [(ngModel)]="user[0].emailAddress" readonly>
+                   
+                  </div>
+  
+                  <div class="col-sm-6">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="text" class="form-control" name="password"  [(ngModel)]="user[0].password" >
+                   
+                  </div>
+  
+  
+                  <div class="col-12">
+                    <label for="about" class="form-label">About</label>
+                    <textarea class="form-control" name="about" placeholder="A Quick Meeting"
+                    [(ngModel)]="user[0].about" rows="3"></textarea>
+                  </div>
+  
+                  <!-- <div class="col-md-6">
+                    <label for="language" class="form-label">Language </label>
+                    <select class="form-select" name="language"  id="language" required="">
+                      <option *ngFor="let opt of this.languageArr" [value]="opt.label" [selected]="opt.status == 'true'" >
+                        {{opt.label}}</option>
+                    </select>
+                  
+                  </div> -->
+  
+  
+  
+                  <div class="col-md-6">
+                    <label for="timezone" class="form-label">Timezone</label>
+                    
+                    <select  class="form-select" id="timezone" name="timezone">
+                      <option *ngFor="let opt of this.timeZoneArr" [value]="opt.label" [selected]="opt.status == 'true'">
+                        {{opt.label}}</option>
+                      
+                   </select>
+                 
+                  </div>
+                </div>
+  
+                <hr class="my-4">
+  
+  
+                <button class="w-100 btn btn-primary btn-lg"   type="submit" >Update</button>
+              </form>
+            </div>
+  
+          </div>
+          <div class="tab-pane fade d-flex justify-content-center pt-4" id="profile" role="tabpanel"
+            aria-labelledby="profile-tab">
+            <h4>You are on free subscription.</h4>
+          </div>
+        </div>
+      </div>
+  
+  
+    </div>
+  
+  </div>

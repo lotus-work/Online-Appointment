@@ -1,50 +1,79 @@
 <section class="container-fluid">
-    <div class="row">
-        <div
-            class="col-lg-7 col-md-7 col-sm-12 vh-100 text-light d-flex align-items-center d-flex justify-content-center bg-dark">
-        </div>
-        <div
-            class="col-lg-5 col-md-5 col-sm-12 d-flex align-items-center justify-content-center my-5 py-lg-0 py-md-0 py-5">
-            <div class="card ">
-
-                <div class="card-body">
-                    <form action="">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <div class="input-group has-validation">
-                                <span class="input-group-text">requesttalk.netlify.app/</span>
-                                <input type="text" name="username" class="form-control ">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Full Name</label>
-                            <input type="text" name="fullname" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Email Address</label>
-                            <input type="email" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Password</label>
-                            <input type="password" class="form-control">
-                        </div>
-
-
-
-                        <button type="submit" class="btn btn-dark col-12"> GET STARTED</button>
-
-                    </form>
-                    <div>
-                        <p class="pt-3">Already have an account ? <span><a href="signin">Sign In</a></span> </p>
-                    </div>
-                </div>
-
-
-                <div class="card-footer text-muted">
-                    <p>By signing up, you agree to our <a href="">Terms of Service</a> and <a href="">Privacy
-                            Policy</a>.</p>
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div
+      class="col-lg-7 col-md-7 col-sm-12 vh-100 text-light d-flex align-items-center d-flex justify-content-center bg-dark">
     </div>
+    <div class="col-lg-5 col-md-5 col-sm-12 d-flex align-items-center justify-content-center my-5 py-lg-0 py-md-0 py-5">
+      <div class="card ">
+
+        <div class="card-body">
+          <form #addUser="ngForm" (ngSubmit)="addNewUserFunc(addUser)" class="needs-validation" novalidate="">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username <span *ngIf="data.success == false" style="text-align:left; color:red;">(already taken)</span></label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">requesttalk.netlify.app/</span>
+                <input type="text" name="username" #usernameRef="ngModel" class="form-control " 
+                [ngModel]='query' 
+                (ngModelChange)='onChange($event)'
+                (keydown.space)="$event.preventDefault()"
+                ngModel required>
+              </div>
+              <div *ngIf="usernameRef.errors && (usernameRef.dirty || usernameRef.touched)"
+                style="text-align:left; color:red;">
+                <div [hidden]="!usernameRef.errors">
+                  <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+              </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" name="fullName" #fullNameRef="ngModel" class="form-control " ngModel required>
+              <div *ngIf="fullNameRef.errors && (fullNameRef.dirty || fullNameRef.touched)"
+                style="text-align:left; color:red;">
+                <div [hidden]="!fullNameRef.errors">
+                  <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="emailAdderss" class="form-label">E-Mail</label>
+              <input type="email" name="emailAdderss" #emailAdderssRef="ngModel" class="form-control " ngModel required>
+              <div *ngIf="emailAdderssRef.errors && (emailAdderssRef.dirty || emailAdderssRef.touched)"
+                style="text-align:left; color:red;">
+                <div [hidden]="!emailAdderssRef.errors">
+                  <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password" #passwordRef="ngModel" class="form-control " ngModel required>
+              <div *ngIf="passwordRef.errors && (passwordRef.dirty || passwordRef.touched)"
+                style="text-align:left; color:red;">
+                <div [hidden]="!passwordRef.errors">
+                  <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-dark col-12" [disabled]="!addUser.form.valid || data.success == false">Sign up for free</button>
+
+
+          </form>
+         
+          <div>
+            <p class="pt-3">Already have an account ? <span><a href="signin">Sign In</a></span> </p>
+          </div>
+        </div>
+
+
+        <div class="card-footer text-muted">
+          <p>By signing up, you agree to our <a href="">Terms of Service</a> and <a href="">Privacy
+              Policy</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

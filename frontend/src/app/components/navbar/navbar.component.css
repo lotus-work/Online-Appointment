@@ -1,11 +1,11 @@
 i{
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 
 @media screen and (max-width: 991px) {
-  .logo  img{
-        width: 100%;
-    }
-    
+.logo  img{
+      width: 100%;
   }
+  
+}

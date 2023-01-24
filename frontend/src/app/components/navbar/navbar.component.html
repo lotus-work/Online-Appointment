@@ -1,32 +1,32 @@
 <header class="navbar-light bg-white sticky-top p-3 mb-3 border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none logo">
-         <img src="https://requesttalk.netlify.app/assets/images/RequestTalk.svg" width="70%" alt="">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none logo">
+       <img src="https://requesttalk.netlify.app/assets/images/RequestTalk.svg" width="70%" alt="">
+      </a>
+
+      <ul class="nav col-12 col-lg-auto ms-lg-auto mb-2 justify-content-center mb-md-0 me-md-4">
+        <li><a href="home" class="nav-link px-2 link-dark">Home</a></li>
+        <li><a href="event-types" class="nav-link px-2 link-dark">Event Types</a></li>
+        <li><a href="bookings" class="nav-link px-2 link-dark">Booking</a></li>
+        <li><a href="availability" class="nav-link px-2 link-dark">Availability</a></li>
+        <li><a href="settings" class="nav-link px-2 link-dark">Settings</a></li>
+      </ul>
+
+   
+
+      <div class="dropdown text-end">
+        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="{{currentUserProfilePicture}}" alt="mdo" width="42" height="42" class="rounded-circle">
         </a>
-
-        <ul class="nav col-12 col-lg-auto ms-lg-auto mb-2 justify-content-center mb-md-0 me-md-4">
-          <li><a href="home" class="nav-link px-2 link-dark">Home</a></li>
-          <li><a href="event-types" class="nav-link px-2 link-dark">Event Types</a></li>
-          <li><a href="bookings" class="nav-link px-2 link-dark">Booking</a></li>
-          <li><a href="availability" class="nav-link px-2 link-dark">Availability</a></li>
+        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" >
+          <li><a class="dropdown-item" href="#">Welcome : {{currentFullName}}</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="u/{{currentUserName}}" target="_blank">View Profile Page</a></li>
+          <li><a class="dropdown-item" (click)="logoutUser()" >Sign Out</a></li>
+          
         </ul>
-
-     
-
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://i.ibb.co/qFjQjgQ/kitty-eth.png" alt="mdo" width="42" height="42" class="rounded-circle">
-          </a>
-          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" >
-            <li><a class="dropdown-item" href="#">Welcome : Lotus</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item"  href="settings">Settings</a></li>
-            <li><a class="dropdown-item" href="u/" target="_blank">View Profile Page</a></li>
-            <li><a class="dropdown-item" href="#"  >Sign Out</a></li>
-            
-          </ul>
-        </div>
       </div>
     </div>
-  </header>
+  </div>
+</header>
