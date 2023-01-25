@@ -1,1 +1,179 @@
-<p>event-types works!</p>
+<app-navbar></app-navbar>
+<div class="container bg-light">
+    <div class="row p-2 p-md-3 mt-2 text-light rounded bg-blueClr">
+      <div class="col-md-12">
+        <h1 class="fw-bold">Event Types</h1>
+      </div>
+    </div>
+    <div class="row p-2 p-md-3">
+      <div class="col-md-12">
+        <p>Create events to share for people to book on your calendar.</p>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4 d-flex ">
+          <div>
+           <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="fa fa-plus" aria-hidden="true"></i> New Event Type
+            </button>
+  
+            <!-- Modal -->
+            <div class="modal fade text-dark " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+  
+                  <div class="modal-body">
+                    <h5 id="exampleModalLabel">Add a new event type</h5>
+  
+                    Create a new event type for people to book times with.
+                    <form #addnewEventForm="ngForm" (ngSubmit)="addNewEventFunc(addnewEventForm)" class="ng-untouched ng-pristine ng-invalid">
+                      <div class="form-group">
+                      <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Title</label>
+                        <input type="text"  placeholder="Quick Chat" name="title" #titleRef="ngModel" class="form-control " ngModel required>
+                      </div>
+                      <div *ngIf="titleRef.errors && (titleRef.dirty || titleRef.touched)" style="text-align:left; color:red;">
+                        <div [hidden]="!titleRef.errors">
+                          <p>&nbsp;Title is mandatory</p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <label for="message-text" class="col-form-label">Description</label>
+                      <textarea id="message-text" placeholder="A Quick Meeting" name="desc" #descRef="ngModel" class="form-control " ngModel required></textarea>
+                    </div>
+                    <div *ngIf="descRef.errors && (descRef.dirty || descRef.touched)" style="text-align:left; color:red;">
+                      <div [hidden]="!descRef.errors">
+                        <p>&nbsp;Description is mandatory</p>
+                      </div>
+                    </div>
+                  </div>
+                    
+  
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <label for="location" class="col-form-label">Location</label>
+                      <select class="form-select" id="location" required=""  >
+                        <option *ngFor="let opt of this.locationArr" [value]="opt.label" [selected]="opt.status == 'true'" >
+                          {{opt.label}}</option>
+                      </select>
+                    </div>
+                  </div>
+                   
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <label for="avaibility" class="col-form-label">Availability</label>
+                    
+                      <select class="form-select" id="avaibility" required="" >
+                        <option *ngFor="let opt of this.avaibility" [value]="opt._id" [selected]="opt.status == 'true'">
+                          {{opt.availabilityName}}</option>
+                        
+                      </select>
+                      </div>
+                    </div>
+                       
+                    <div class="form-group">
+                      <label for="basic-url" class="form-label">Length</label>
+                      <div class="input-group mb-3">
+                        <input type="number" placeholder="15"  name="length" #lenRef="ngModel" class="form-control " ngModel required>
+                        <span class="input-group-text" id="basic-addon2">Minutes</span>
+                      </div>
+  
+                      <div *ngIf="lenRef.errors && (lenRef.dirty || lenRef.touched)" style="text-align:left; color:red;">
+                        <div [hidden]="!lenRef.errors">
+                          <p>&nbsp;Length is mandatory</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-success " [disabled]="!addnewEventForm.form.valid">
+                        Save changes</button>
+                       
+                    </div>
+                   
+                    </form>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+  
+  
+          </div>
+        </div>
+      </div>
+  
+  
+    </div>
+  
+    <!-- <div class="row mx-2">
+          <div class="py-5 text-center text-dark rounded bg-light border border-2  ">
+              <div class="col-md-12 ">
+                  <div class="icon-white-circle d-block mx-auto mb-4 "><i class="fa fa-calendar-o" aria-hidden="true"></i></div>
+                  <h3 class="pt-100 mb-2">Create your first event type</h3>
+                  <p class="lead ">Event types enable you to share links that show available times on your calendar and allow people to make bookings with you.</p>
+              </div>
+          </div>
+          
+      </div> -->
+  <div *ngIf="allEvents.length !=0; else elseBlock">
+    
+    <div class="row mx-1" >
+      <div class="col-md-12 mb-2 text-dark bg-white border border-1 shadow-sm bg-body rounded"  *ngFor="let evt of allEvents"  >
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+        
+          <div>
+              <p class="imp-head">{{evt.title}} <span class="fst-italic">/{{userName}}/{{evt.url}}</span></p>
+         
+            <p >{{ (evt.description.length>100)? (evt.description | slice:0:100)+'..':(evt.description) }}  </p>
+            <div>
+              <span style="margin-right:20px"><i class="fa fa-clock-o" aria-hidden="true"></i> {{evt.length}}m</span>
+              <span><i class="fa fa-user" aria-hidden="true"></i> 1-on-1</span>
+            </div>
+          </div>
+          <div>
+            <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+              <div class="btn-group me-2">
+                <a href="u/{{this.userName}}/{{evt.url}}" target="_blank" class="btn btn-sm btn-outline-secondary gotoLink" target="_blank"><i class="fa fa-external-link"
+                  aria-hidden="true"></i></a>
+               
+                <button type="button" class="btn btn-sm btn-outline-secondary"  (click)="copyToClipBoard(evt.url)"><i class="fa fa-link"
+                    aria-hidden="true"></i></button>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger " data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="edit-event-types/{{evt._id}}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" (click)="deleteEvent(evt._id)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+     </div>
+  </div>
+  </div>
+  <ng-template #elseBlock>
+    <div class="row mx-1" >
+      <div class="col-md-12 mb-2 text-dark bg-white border border-1 shadow-sm bg-body rounded"  >
+       <div class=" pt-5 pb-5 text-center ">
+         <img src="https://camden.rutgers.edu/new/wp-content/plugins/elementor/assets/images/no-search-results.svg" alt="" class="pb-4">
+       <p class="lead text-muted" >You haven't created any event yet. Click on <span class="fst-italic"> New Event Type</span>  to create.</p>
+       </div>
+     </div>
+  </div>
+  </ng-template>
+     
+  
+  
+  </div>
+  

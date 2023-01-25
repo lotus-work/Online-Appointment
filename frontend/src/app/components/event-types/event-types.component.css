@@ -1,0 +1,29 @@
+
+.bg-light{
+    padding-bottom: 20px;
+}
+
+.icon-white-circle i{
+    margin-right: 10px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(52, 52, 52);
+    padding: 20px;
+    border-radius: 50%;
+    font-size: 40px;
+}
+.gotoLink i{
+    padding-top: 6px;
+}
+
+/* 
+p{
+    overflow-wrap: break-word;
+    word-break: break-word;
+} */
+.direct-link{
+    text-decoration: none;
+    color: black;
+}
+.imp-head{
+    margin-bottom: 4px;
+}

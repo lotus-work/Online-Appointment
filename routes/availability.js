@@ -67,7 +67,7 @@ router.put('/update', async (req, res) => {
 });
 
 
-// DELETE FREE LISTING 
+// DELETE AVAILIBITY
 router.delete('/delete/:userId/:availabilityId', async (req, res) => {
     try {
         const availability = await Availablity.findOne({

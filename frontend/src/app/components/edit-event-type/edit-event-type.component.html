@@ -1,1 +1,205 @@
-<p>edit-event-type works!</p>
+<app-navbar></app-navbar>
+
+<div class="container bg-light">
+    <div class="row p-2 p-md-3 mt-2 text-light rounded bg-blueClr">
+      <div class="col-md-12">
+        <h1 class="fw-bold">Edit Event Type</h1>
+      </div>
+    </div>
+  
+  
+    <main class="p-md-2 mt-2">
+      <div class="max-w-screen-md vstack gap-6">
+             
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div>
+                <h4>{{eventDetails[0].title}}</h4>
+                <div class="btn-toolbar mt-3 mb-2 mb-md-0">
+                  <div class="btn-group me-2">
+                    <a href="https://requesttalk.netlify.app/u/{{userName}}/{{eventDetails[0].url}}" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="fa fa-external-link"
+                      aria-hidden="true"></i>Preview</a>
+                  
+                    <button type="button" class="btn btn-sm btn-outline-secondary"  (click)="copyToClipBoard()"><i class="fa fa-clipboard"
+                        aria-hidden="true" ></i>Copy Link</button>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary"  (click)="deleteEvent(eventIdParams)"><i class="fa fa-trash-o"
+                        aria-hidden="true"></i>Delete</button>
+                  </div>
+  
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="mt-2 py-2">
+           
+          </div>
+          <form #updateEventForm="ngForm" (ngSubmit)="updateEventDetails(updateEventForm)"
+            class="needs-validation ng-untouched ng-pristine ng-valid">
+            <div class="row g-3">
+  
+  
+  
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="mb-2"><label class="mb-2">Event Title</label>
+                    <input type="text" name="title" #titleRef="ngModel" [(ngModel)]="eventDetails[0]!.title"
+                      class="form-control " required>
+                  </div>
+  
+                  <div *ngIf="titleRef.errors && (titleRef.dirty || titleRef.touched)"
+                    style="text-align:left; color:red;">
+                    <div [hidden]="!titleRef.errors">
+                      <p>&nbsp;Event Title is mandatory</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="mb-3"><label class="mb-2">Length</label>
+                    <input type="number" name="length" #lenRef="ngModel" [(ngModel)]="eventDetails[0].length"
+                      class="form-control " required>
+                  </div>
+  
+                  <div *ngIf="lenRef.errors && (lenRef.dirty || lenRef.touched)" style="text-align:left; color:red;">
+                    <div [hidden]="!lenRef.errors">
+                      <p>&nbsp;Length is mandatory</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+  
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="mb-2"><label class="mb-2">Event Name <small class="fst-italic">- Required</small></label>
+                    <input type="text" name="eventName" placeholder="Meet with {USER}" #evtNameRef="ngModel"
+                      [(ngModel)]="eventDetails[0].eventName" class="form-control " required>
+                  </div>
+  
+                  <div *ngIf="evtNameRef.errors && (evtNameRef.dirty || evtNameRef.touched)"
+                    style="text-align:left; color:red;">
+                    <div [hidden]="!evtNameRef.errors">
+                      <p>&nbsp;Event Name is mandatory</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="mb-2"><label class="mb-2">URL</label>
+                    <div class="input-group has-validation">
+                      <span class="input-group-text">{{this.userName}}/</span>
+                      <input type="text" name="url" #urlRef="ngModel" [(ngModel)]="eventDetails[0].url"
+                        class="form-control " readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+  
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="mb-2"><label class="mb-2">Description</label>
+                    <textarea id="message-text" placeholder="A Quick Meeting" name="desc" #descRef="ngModel"
+                      #titleRef="ngModel" [(ngModel)]="eventDetails[0].description" class="form-control "
+                      required></textarea>
+                  </div>
+  
+                  <div *ngIf="descRef.errors && (descRef.dirty || descRef.touched)" style="text-align:left; color:red;">
+                    <div [hidden]="!descRef.errors">
+                      <p>&nbsp;Description is mandatory</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label for="availability" class="form-label">Availability </label>
+                    <select class="form-select" id="availability" required="">
+                      <option *ngFor="let opt of this.avaibility" [value]="opt._id" [selected]="opt.status == 'true'">
+                        {{opt.availabilityName}}</option>
+  
+                    </select>
+  
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+  
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label for="location" class="form-label">Location </label>
+                    <select class="form-select" id="location" required="">
+                      <option *ngFor="let opt of this.locationArr" [value]="opt.label" [selected]="opt.status == 'true'">
+                        {{opt.label}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+  
+  
+              <div class="col-6">
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label for="intervals" class="form-label">Time-slot Intervals </label>
+                    <select class="form-select" id="intervals" required="">
+                      <option *ngFor="let opt of this.intervalArr" [value]="opt.duration" [selected]="opt.status == 'true'">
+                        {{opt.label}}</option>
+                    </select>
+  
+                  </div>
+                </div>
+              </div>
+  
+          
+            </div>
+  
+            <hr class="my-4">
+           
+            <div class="form-group">
+  
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input"  name="hideEvent" id="hideEvent" [checked]="hideEventCheckBox" >
+                <label class="form-check-label">Hide Event</label>
+              </div>
+             </div>
+            <div class="form-group">
+  
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input"  name="optInBooking" id="optInBooking" [checked]="optInBookingCheckBox">
+                <label class="form-check-label">The booking needs to be manually confirmed before it is
+                  pushed to the integrations and a confirmation mail is sent.</label>
+              </div>
+             </div>
+          
+             <div class="form-group">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input"  name="disableGuest" id="disableGuest" [checked]="disableGuestCheckBox">
+                <label class="form-check-label" for="disableGuest">Disable adding additional guests while booking.</label>
+              </div>
+            </div>
+           
+  
+  
+  
+  
+            <hr class="my-4">
+  
+            <button class="w-100 btn btn-primary btn-lg" type="submit"
+              [disabled]="!updateEventForm.form.valid">Update</button>
+          </form>
+        </div>
+  
+      </div>
+    </main>
+  
+  </div>

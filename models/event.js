@@ -26,7 +26,7 @@ const eventSchema = new mongoose.Schema({
         required: false
     },
     eventName:{
-        type:Number,
+        type:String,
         required: false
     },
     location:{
@@ -37,7 +37,7 @@ const eventSchema = new mongoose.Schema({
         type:String,
         required: false
     },
-    disableGuest:{
+    disableGuests:{
         type:String,
         required: false
     },
@@ -45,7 +45,7 @@ const eventSchema = new mongoose.Schema({
         type:String,
         required: false
     },
-    timeSlotInterval:{
+    timeSlotIntervals:{
         type:Number,
         required: false
     },

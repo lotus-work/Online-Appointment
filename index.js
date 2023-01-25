@@ -29,13 +29,13 @@ con.on('open', () => {
 // Router 
 const userRouter = require('./routes/user');
 const availability = require('./routes/availability');
-// const requestRouter = require('./routes/request') 
+const event = require('./routes/event') 
 // const freeBorrowListing = require('./routes/freeBorrowListing');
 // const freeWantedListing = require('./routes/freeWantedListing');
 
 app.use('/user', userRouter);
 app.use('/availability', availability);
-// app.use('/user/request', requestRouter);
+app.use('/event', event);
 // app.use('/user/listing/freeBorrow', freeBorrowListing);
 // app.use('/user/listing/freeWanted', freeWantedListing);
 
