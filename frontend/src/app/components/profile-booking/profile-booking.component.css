@@ -1,0 +1,44 @@
+.profile-desc{
+    position: relative;
+}
+.company-logo img{
+    position: absolute;
+    top: -240px;
+    opacity: 0.5;
+}
+.profile-desc img{
+    width: 240px;
+    height: 240px;
+    }
+    
+.direct-link{
+    text-decoration: none;
+    color: black;
+}
+.startup-star i{
+    font-size: 20px;
+    background-color: rgb(244, 244, 41);
+    padding: 5px;
+}
+.reachOut {
+    position: relative;
+   
+}
+.back-cal-img img {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: top right;
+    width: 560px;
+    top: -150px;
+    right: 0;
+    z-index: -1;
+}
+
+.reachOut .card{
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.reachOut .card:hover{
+transition: 0.3s;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

@@ -9,6 +9,11 @@ export class UserService {
   private user_api_url: string = 'http://localhost:9000/user';
   constructor(private http: HttpClient) { }
 
+
+  publicgetUserData(userName: string): Observable<IUsers[]> {
+    return this.http.get<IUsers[]>(this.user_api_url +"/get/public/" + userName ).pipe(catchError(this.errorHandler));
+  }
+
   registerUser(fullName: string, username: string, emailAddress: string, password: string,timezone: string): Observable<boolean> {
     console.log(fullName,username,emailAddress, password, timezone);
     return this.http.post<boolean>(this.user_api_url + "/signup", {
@@ -57,6 +62,41 @@ export class UserService {
   getUserDataByUserName(username: string): Observable<IUsers[]> {
     return this.http.get<IUsers[]>(this.user_api_url +"/get/userDataByUsername/" + username).pipe(catchError(this.errorHandler));
   }
+
+
+  // EMAIL
+
+  resetMail( emailAdderss: string, password: string): Observable<any> {
+  
+    return this.http.get<any>("https://mail-backend.onrender.com/resetMail?emailAddress=" + emailAdderss + "&password=" +password ).pipe(catchError(this.errorHandler));
+  }
+
+  sendBookingConfirmationMail( bookedEmailAdderss: string, userEmailAdderss: string, bookedName: string, eventName: string): Observable<any> {
+  
+    return this.http.get<any>("https://mail-backend.onrender.com/sendBookingConfirmationMail?bookedEmailAdderss=" + bookedEmailAdderss +  "&userEmailAdderss=" +userEmailAdderss +  "&bookedName=" +bookedName + "&eventName=" +eventName  ).pipe(catchError(this.errorHandler));
+  }
+
+  sendBookingPendingMail( bookedEmailAdderss: string, userEmailAdderss: string, bookedName: string,  eventName: string): Observable<any> {
+    return this.http.get<any>("https://mail-backend.onrender.com/sendBookingPendingMail?bookedEmailAdderss=" + bookedEmailAdderss +  "&userEmailAdderss=" +userEmailAdderss + "&bookedName=" + bookedName + "&eventName=" +eventName  ).pipe(catchError(this.errorHandler));
+ }
+
+ sendRescheduleMail( bookedEmailAdderss: string, userEmailAdderss: string, bookedName: string,  eventName: string, userURL: string, timeAndTimeZone: string, eventDate: string ): Observable<any> {
+  return this.http.get<any>("https://mail-backend.onrender.com/sendRescheduleMail?bookedEmailAdderss=" + bookedEmailAdderss +  "&userEmailAdderss=" +userEmailAdderss + "&bookedName=" + bookedName + "&eventName=" +eventName  + "&userURL=" + userURL + "&timeAndTimeZone=" +timeAndTimeZone+ "&eventDate=" +eventDate).pipe(catchError(this.errorHandler));
+}
+sendCancelMail( bookedEmailAdderss: string, userEmailAdderss: string, bookedName: string,  eventName: string, userURL: string, timeAndTimeZone: string, eventDate: string ): Observable<any> {
+  return this.http.get<any>("https://mail-backend.onrender.com/sendCancelMail?bookedEmailAdderss=" + bookedEmailAdderss +  "&userEmailAdderss=" +userEmailAdderss + "&bookedName=" + bookedName + "&eventName=" +eventName  + "&userURL=" + userURL + "&timeAndTimeZone=" +timeAndTimeZone+ "&eventDate=" +eventDate).pipe(catchError(this.errorHandler));
+}
+
+sendBookingAcceptMail( bookedEmailAdderss: string, userEmailAdderss: string, bookedName: string,  eventName: string, userURL: string, timeAndTimeZone: string, eventDate: string ): Observable<any> {
+  return this.http.get<any>("https://mail-backend.onrender.com/sendBookingAcceptMail?bookedEmailAdderss=" + bookedEmailAdderss +  "&userEmailAdderss=" +userEmailAdderss + "&bookedName=" + bookedName + "&eventName=" +eventName  + "&userURL=" + userURL + "&timeAndTimeZone=" +timeAndTimeZone+ "&eventDate=" +eventDate).pipe(catchError(this.errorHandler));
+}
+sendBookingRejectMail( bookedEmailAdderss: string, userEmailAdderss: string, bookedName: string,  eventName: string, userURL: string, timeAndTimeZone: string, eventDate: string ): Observable<any> {
+  return this.http.get<any>("https://mail-backend.onrender.com/sendBookingRejectMail?bookedEmailAdderss=" + bookedEmailAdderss +  "&userEmailAdderss=" +userEmailAdderss + "&bookedName=" + bookedName + "&eventName=" +eventName  + "&userURL=" + userURL + "&timeAndTimeZone=" +timeAndTimeZone+ "&eventDate=" +eventDate).pipe(catchError(this.errorHandler));
+}
+
+sendPreScheduleMail( bookedEmailAdderss: string, userEmailAdderss: string, bookedName: string,  eventName: string): Observable<any> {
+  return this.http.get<any>("https://mail-backend.onrender.com/sendPreScheduleMail?bookedEmailAdderss=" + bookedEmailAdderss +  "&userEmailAdderss=" +userEmailAdderss + "&bookedName=" + bookedName + "&eventName=" +eventName  ).pipe(catchError(this.errorHandler));
+}
 
 
   errorHandler(error: HttpErrorResponse) {

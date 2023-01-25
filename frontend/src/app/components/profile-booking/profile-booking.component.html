@@ -1,0 +1,69 @@
+<div class="container-fluid">
+    <div class="row profile-booking-page">
+      
+      <div class="col-lg-5 col-md-5 col-sm-12 vh-100 text-light area d-flex align-items-center d-flex justify-content-center">
+        <div class="profile-desc p-2 ">
+          <div class="company-logo">
+            <a href="https://requesttalk.netlify.app" target="_blank"><img src="https://requesttalk.netlify.app/assets/images/RequestTalkWhite.svg" alt=""></a>
+          </div>
+          <div class="text-center">
+            <img src="{{userProfilePicture}}" class="rounded-circle" alt="...">
+            <div class="mt-3">
+              <h1 class="fw-bolder fs-1 badge bg-dark text-light ">{{userName}} </h1>
+              <p class=" fw-normal ">{{about}}</p>
+            </div>
+          </div>
+  
+        </div>
+        <ul class="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+  
+      </div>
+  
+      <div class="col-lg-7 col-md-7 col-sm-12 d-flex align-items-center my-5 reachOut">
+        <div class="back-cal-img"><img src="https://requesttalk.netlify.app/assets/images/calendar.png" alt=""></div>
+        <div class="row justify-content-center ">
+          <div class="col-10">
+            <div class="intro pt-3">
+              <h2 class="fw-bold fs-1">Reach out to me</h2>
+            </div>
+          </div>
+          <div class="col-lg-19 col-md-10 col-sm-12 mt-3" *ngFor="let evt of strEvent">
+            <a href="u/{{availUserNameParams}}/{{evt.url}}" class="direct-link">
+              <div class="card">
+                <div class="card-body ">
+                  <h5 class="card-title startup-star fw-bold"> <i class="fa fa-star " aria-hidden="true"></i>
+                    {{evt.title}}</h5>
+                  <p class="card-text  ">{{evt.description}}</p>
+                  <div class="">
+                    <a href="u/{{availUserNameParams}}/{{evt.url}}" class="btn btn-outline-primary rounded-circle"
+                      style="margin-right: 15px;"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    <span class="badge bg-primary" style="margin-right: 15px;"><i class="fa fa-video-camera"
+                        aria-hidden="true"></i> {{evt.location}}</span>
+                    <span class="badge bg-dark text-light"><i class="fa fa-clock-o" aria-hidden="true"></i> {{evt.length}}
+                      mins</span>
+  
+                  </div>
+  
+                </div>
+              </div>
+            </a>
+  
+          </div>
+          <ng-template #elseBlock>Alternate text while primary text is hidden</ng-template>
+  
+  
+        </div>
+      </div>
+    </div>
+  </div>

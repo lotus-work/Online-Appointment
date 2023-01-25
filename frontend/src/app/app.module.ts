@@ -22,6 +22,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { GoogleCalendarIntregrationComponent } from './components/google-calendar-intregration/google-calendar-intregration.component';
 import { ImgurApiService } from "./components/settings/imgur-api.service";
 import { EditAvailabilityComponent } from './components/edit-availability/edit-availability.component';
+import { ProfileBookingComponent } from './components/profile-booking/profile-booking.component';
+import { SuccessBookingComponent } from './components/success-booking/success-booking.component';
+import { EventBookingComponent } from './components/event-booking/event-booking.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { EditAvailabilityComponent } from './components/edit-availability/edit-a
     BookingsComponent,
     AvailabilityComponent,
     GoogleCalendarIntregrationComponent,
-    EditAvailabilityComponent
+    EditAvailabilityComponent,
+    ProfileBookingComponent,
+    SuccessBookingComponent,
+    EventBookingComponent
   ],
   imports: [
     BrowserModule,

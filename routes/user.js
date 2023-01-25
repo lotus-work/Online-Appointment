@@ -13,6 +13,16 @@ router.get('/', async (req, res) => {
     }
 })
 
+// GET PUBLIC USER DATA
+router.get('/get/public/:userName', async(req,res)=>{
+    try {
+        const user = await User.find({ userName: req.params.userName });
+        res.json(user)
+
+    } catch (err) {
+        res.send('Error ' + err);
+    }
+})
 
 // ADD A USER
 router.post('/signup', async (req, res) => {

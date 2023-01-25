@@ -1,0 +1,97 @@
+<div class=" d-flex vh-100 bg-light">
+    <div class="row mx-auto">
+      <div class="col align-self-center ">
+        <div class="card rounded-3 shadow p-2 bg-white" >
+          <div class="card-body">
+         <div class="upper-section" *ngIf="optInBooking === 'Yes'; else elseBlock ">
+          <div class="text-center">
+            <i class="fa fa-clock-o mb-2" aria-hidden="true"></i>
+            <h2 class="fw-bolder">Your booking has been submitted</h2>
+            <p>{{hostname}} still needs to confirm or reject the booking</p>
+            <hr/>
+          </div>
+         </div>
+         <ng-template #elseBlock>
+          <div class="upper-section" >
+            <div class="text-center">
+              <i class="fa fa-clock-o mb-2" aria-hidden="true"></i>
+              <h2 class="fw-bolder">Your booking has been confirmed</h2>
+              <p>Lotus Biswas has confirmed your booking request. </p>
+             
+              <hr/>
+            </div>
+           </div>
+        </ng-template>
+         <div class="middle-section">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                 <p class="fw-bolder">What</p>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    {{whatEvent}}
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                 <p class="fw-bolder">Date</p>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                                    
+                    {{whenDate}}
+                   
+                </div>
+              </div> 
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                 <p class="fw-bolder">Time</p>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                                    
+                    
+                  {{whenTime}}
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                 <p class="fw-bolder">Duration </p>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                                    
+                    
+                   {{duration}} minutes
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                 <p class="fw-bolder">Timezone </p>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                                    
+                    
+                 {{timezoneUser}}
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                 <p class="fw-bolder">Where</p>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                   I will soon get in touch with you with details.
+                </div>
+              </div>
+              
+         </div>
+         <hr>
+         <div class="lower-section text-center mt-2 pt-2 pb-2 bg-dark text-white">
+          Talk to you soon ! 😊
+         
+         </div>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+  </div>

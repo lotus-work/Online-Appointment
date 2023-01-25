@@ -1,1 +1,401 @@
-<p>bookings works!</p>
+<app-navbar></app-navbar>
+
+<div class="container bg-light">
+    <div class="row p-2 p-md-3 mt-2 text-light rounded bg-blueClr">
+      <div class="col-md-12">
+        <h1 class="fw-bold">Bookings</h1>
+      </div>
+    </div>
+    <div class="row p-2 p-md-3">
+        <div class="col-md-12">
+          <p>See upcoming and past events booked through your event type links.</p>
+        </div>
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="confirmation-pending-tab" data-bs-toggle="tab" data-bs-target="#confirmation-pending" type="button" role="tab" aria-controls="confirmation-pending" aria-selected="true">Confirmation Pending
+                    <span class="badge bg-primary">{{onHoldBookings.length}}</span>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab" aria-controls="completed" aria-selected="false">
+                    Completed <span class="badge bg-success">{{completedBookings.length}}</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="rescheduled-tab" data-bs-toggle="tab" data-bs-target="#rescheduled" type="button" role="tab" aria-controls="rescheduled" aria-selected="false">
+                    Rescheduled <span class="badge bg-warning text-dark">{{rescheduleBookings.length}}</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link " id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="false">Upcoming
+                    <span class="badge bg-info text-dark">{{upcomingBookings.length}}</span>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="past-tab" data-bs-toggle="tab" data-bs-target="#past" type="button" role="tab" aria-controls="past" aria-selected="false">Past
+                     <span class="badge bg-secondary">{{pastBookings.length}}</span></button>
+                
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab" aria-controls="cancelled" aria-selected="false">
+                    Cancelled <span class="badge bg-danger">{{cancelledBookings.length}}</span></button>
+                </li>
+            
+              </ul>
+              <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="confirmation-pending" role="tabpanel" aria-labelledby="confirmation-pending-tab">
+                  <div *ngIf="onHoldBookings.length !=0; else elseBlock"  >  
+                  <div class="row mx-1 my-2">
+                        <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body rounded" *ngFor="let bk of onHoldBookings;index as indexOfelement;">
+                          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+                            <div>
+                              <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                              <div >
+                                <span ><i class="fa fa-clock-o" aria-hidden="true"></i>  {{onHoldTimingsData[indexOfelement][0].userstartTime}} - {{onHoldTimingsData[indexOfelement][0].userEndTime}} ({{onHoldTimingsData[indexOfelement][0].userTimezone}}) </span><br/>
+                                <span><i class="fa fa-calendar-o" aria-hidden="true"></i>  {{onHoldTimingsData[indexOfelement][0].userbookedDate}}</span>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                                <div class="btn-group me-2 ">
+                                  <button type="button" class="btn btn-sm btn-success" style="margin-right: 4px;" (click)="updateOnConfirm(bk._id, indexOfelement)"><i class="fa fa-check-circle" aria-hidden="true" ></i>   Confirm</button>
+                                  <button type="button" class="btn btn-sm btn-danger" style="margin-right: 4px;"  (click)="updateOnReject(bk._id, indexOfelement)"><i class="fa fa-window-close" aria-hidden="true" ></i>   Reject</button>
+                                  <button type="button"  class="btn btn-outline-dark" style="margin-right: 4px;"  data-bs-toggle="collapse" [attr.href]="'#collapseExample' + indexOfelement" role="button" aria-expanded="false"  [attr.aria-controls]="'#collapseExample' + indexOfelement" ><i class="fa fa-arrow-down" aria-hidden="true"></i>   View Deatils</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="collapse mb-4" id="collapseExample{{indexOfelement}}">
+                            <div class="card card-body">
+                              <p class="fw-bold badge bg-primary text-wrap" style="width: 10rem;">Attendee Information</p>
+                             <p  class="fst-italic"><i class="fa fa-commenting" aria-hidden="true"></i>   {{bk.additionalNotes}}</p>
+    
+                          
+                             <p ><i class="fa fa-envelope" aria-hidden="true"></i>    <a href = "mailto: {{bk.appointmentBookedEmail}}">{{bk.appointmentBookedEmail}}</a> <span *ngIf="bk.appointmentGuestEmail !=null" > , <a href = "mailto: {{bk.appointmentGuestEmail}}"> {{bk.appointmentGuestEmail}}</a> (Guest)</span> </p>
+    
+                              <p ><i class="fa fa-phone-square" aria-hidden="true"></i>   {{bk.appointmentBookedPhoneNumber}}</p>
+    
+                        
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                      <ng-template #elseBlock>
+                        <div class="row  mx-1 my-2" >
+                          <div class="col-md-12 mb-2 text-dark bg-white border border-1 shadow-sm bg-body rounded"  >
+                           <div class=" pt-5 pb-5 text-center ">
+                             <img src="https://byblosmiami.com/wp-content/plugins/elementor/assets/images/no-search-results.svg" alt="" class="pb-4">
+                            </div>
+                         </div>
+                      </div>
+                      </ng-template>
+                     
+                </div>
+
+                <div class="tab-pane fade" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+                  <div *ngIf="upcomingBookings.length !=0; else elseBlock"  > 
+                  <div class="row mx-1 my-2">
+                    <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body rounded" *ngFor="let bk of upcomingBookings;index as indexOfelement;">
+                      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+                        <div>
+                        <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                          <div >
+                            <span ><i class="fa fa-clock-o" aria-hidden="true"></i>   {{upcomingTimingsData[indexOfelement][0].userstartTime}} - {{upcomingTimingsData[indexOfelement][0].userEndTime}} ({{upcomingTimingsData[indexOfelement][0].userTimezone}})</span><br/>
+                            <span><i class="fa fa-calendar-o" aria-hidden="true"></i>   {{upcomingTimingsData[indexOfelement][0].userbookedDate}}</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                            <div class="btn-group me-2 ">
+                                <button type="button" class="btn btn-sm btn-danger" style="margin-right: 4px;" (click)="updateOnCancelUpcoming(bk._id,indexOfelement)"><i class="fa fa-window-close" aria-hidden="true"></i>  Cancel</button>
+                              
+                              <button type="button"  class="btn btn-outline-dark" style="margin-right: 4px;"  data-bs-toggle="collapse" [attr.href]="'#collapseExample' + indexOfelement" role="button" aria-expanded="false"  [attr.aria-controls]="'#collapseExample' + indexOfelement" ><i class="fa fa-arrow-down" aria-hidden="true"></i>  View Deatils</button>
+                            </div>
+                          
+                          </div>
+                          
+                        </div>
+                      </div>
+                      <div class="collapse mb-4" id="collapseExample{{indexOfelement}}">
+                        <div class="card card-body">
+                          <p class="fw-bold badge bg-primary text-wrap" style="width: 10rem;">Attendee Information</p>
+                         <p  class="fst-italic"><i class="fa fa-commenting" aria-hidden="true"></i>   {{bk.additionalNotes}}</p>
+
+                      
+                         <p ><i class="fa fa-envelope" aria-hidden="true"></i>    <a href = "mailto: {{bk.appointmentBookedEmail}}">{{bk.appointmentBookedEmail}}</a> <span *ngIf="bk.appointmentGuestEmail !=null" > , <a href = "mailto: {{bk.appointmentGuestEmail}}"> {{bk.appointmentGuestEmail}}</a> (Guest)</span> </p>
+
+                          <p ><i class="fa fa-phone-square" aria-hidden="true"></i>   {{bk.appointmentBookedPhoneNumber}}</p>
+
+                          <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                            <div class="btn-group me-2 ">
+                           
+                              <button type="button" class="btn btn-sm btn-info" style="margin-right: 4px;" (click)="addToCalendar(bk.bookedEventId, indexOfelement,bk._id)"  *ngIf="bk.sendConfirmationMail =='Not Sent' else elseBlock"><i class="fa fa-envelope" aria-hidden="true"></i>   Send Schedule Mail</button>
+                             
+                              <ng-template #elseBlock>
+                                <button type="button" class="btn btn-sm btn-success" disabled style="margin-right: 4px;"><i class="fa fa-envelope" aria-hidden="true"></i>   Mail Sent</button>
+                             
+                              </ng-template>
+                              <button type="button" class="btn btn-sm btn-success" style="margin-right: 4px;" (click)="updateOnComplete(bk._id)"><i class="fa fa-check-circle" ></i>  Completed</button>
+                              <button type="button" class="btn btn-sm btn-warning" style="margin-right: 4px;" (click)="updateOnRescheduleFromUpcoming(bk._id,indexOfelement)"><i class="fa fa-repeat" aria-hidden="true" ></i>  Reschedule</button>
+                             </div>
+                          
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                
+              
+                  </div>
+                  </div>
+                  <ng-template #elseBlock>
+                    <div class="row  mx-1 my-2" >
+                      <div class="col-md-12 mb-2 text-dark bg-white border border-1 shadow-sm bg-body rounded"  >
+                       <div class=" pt-5 pb-5 text-center ">
+                         <img src="https://byblosmiami.com/wp-content/plugins/elementor/assets/images/no-search-results.svg" alt="" class="pb-4">
+                        </div>
+                     </div>
+                  </div>
+                  </ng-template>
+                </div>
+
+                <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+                  <div *ngIf="pastBookings.length !=0; else elseBlock"  > 
+                  <div class="row mx-1 my-2">
+                    <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body" *ngFor="let bk of pastBookings;index as indexOfelement;">
+                      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+                        <div>
+                          <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                           <div >
+                            <span ><i class="fa fa-clock-o" aria-hidden="true"></i>  {{pastTimingsData[indexOfelement][0].userstartTime}} - {{pastTimingsData[indexOfelement][0].userEndTime}} ({{pastTimingsData[indexOfelement][0].userTimezone}})</span><br/>
+                            <span><i class="fa fa-calendar-o" aria-hidden="true"></i>  {{pastTimingsData[indexOfelement][0].userbookedDate}}</span>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                            <div class="btn-group me-2 ">
+                                <button type="button" class="btn btn-sm btn-danger" style="margin-right: 4px;" (click)="updateOnCancelPast(bk._id,indexOfelement)"><i class="fa fa-window-close" aria-hidden="true"></i> Cancel</button>
+                              
+                              <button type="button"  class="btn btn-outline-dark" style="margin-right: 4px;"  data-bs-toggle="collapse" [attr.href]="'#collapseExample' + indexOfelement" role="button" aria-expanded="false"  [attr.aria-controls]="'#collapseExample' + indexOfelement" ><i class="fa fa-arrow-down" aria-hidden="true"></i> View Deatils</button>
+                            </div>
+                          
+                          </div>
+                          
+                        </div>
+                      </div>
+
+                      <div class="collapse mb-4" id="collapseExample{{indexOfelement}}">
+                        <div class="card card-body">
+                          <p class="fw-bold badge bg-primary text-wrap" style="width: 10rem;">Attendee Information</p>
+                         <p  class="fst-italic"><i class="fa fa-commenting" aria-hidden="true"></i>  {{bk.additionalNotes}}</p>
+
+                      
+                         <p ><i class="fa fa-envelope" aria-hidden="true"></i>   <a href = "mailto: {{bk.appointmentBookedEmail}}">{{bk.appointmentBookedEmail}}</a> <span *ngIf="bk.appointmentGuestEmail !=null" > , <a href = "mailto: {{bk.appointmentGuestEmail}}"> {{bk.appointmentGuestEmail}}</a> (Guest)</span> </p>
+
+                          <p ><i class="fa fa-phone-square" aria-hidden="true"></i>  {{bk.appointmentBookedPhoneNumber}}</p>
+
+                          <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                            <div class="btn-group me-2 ">
+                           
+                           
+                              <button type="button" class="btn btn-sm btn-success" style="margin-right: 4px;" (click)="updateOnComplete(bk._id)"><i class="fa fa-check-circle" ></i> Completed</button>
+                              <button type="button" class="btn btn-sm btn-warning" style="margin-right: 4px;" (click)="updateOnRescheduleFromPast(bk._id, indexOfelement)"><i class="fa fa-repeat" aria-hidden="true" ></i> Reschedule</button>
+                             </div>
+                          
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <ng-template #elseBlock>
+                    <div class="row  mx-1 my-2" >
+                      <div class="col-md-12 mb-2 text-dark bg-white border border-1 shadow-sm bg-body rounded"  >
+                       <div class=" pt-5 pb-5 text-center ">
+                         <img src="https://byblosmiami.com/wp-content/plugins/elementor/assets/images/no-search-results.svg" alt="" class="pb-4">
+                        </div>
+                     </div>
+                  </div>
+                  </ng-template>
+                </div>
+
+                <div class="tab-pane fade" id="cancelled" role="tabpanel" aria-labelledby="cancelled-tab">
+                  <div *ngIf="cancelledBookings.length !=0; else elseBlock"  > 
+                  <div class="row mx-1 my-2">
+                    <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body" *ngFor="let bk of cancelledBookings;index as indexOfelement;">
+                      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+                        
+                        <div>
+                          <span class="badge rounded-pill bg-danger mb-2">Cancelled</span>
+                          <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                          <div >
+                            <span ><i class="fa fa-clock-o" aria-hidden="true"></i>  {{cancelledTimingsData[indexOfelement][0].userstartTime}} - {{cancelledTimingsData[indexOfelement][0].userEndTime}} ({{cancelledTimingsData[indexOfelement][0].userTimezone}}) </span><br/>
+                            <span><i class="fa fa-calendar-o" aria-hidden="true"></i>  {{cancelledTimingsData[indexOfelement][0].userbookedDate}}</span>
+                          </div>
+                        </div>
+
+                        <div>
+                         <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                        <div class="btn-group me-2 ">
+                            
+                          <button type="button"  class="btn btn-outline-dark" style="margin-right: 4px;"  data-bs-toggle="collapse" [attr.href]="'#collapseExample' + indexOfelement" role="button" aria-expanded="false"  [attr.aria-controls]="'#collapseExample' + indexOfelement" ><i class="fa fa-arrow-down" aria-hidden="true"></i> View Deatils</button>
+                        </div>
+                      
+                      </div>
+                        </div>
+                      </div>
+                      <div class="collapse mb-4" id="collapseExample{{indexOfelement}}">
+                        <div class="card card-body">
+                          <p class="fw-bold badge bg-primary text-wrap" style="width: 10rem;">Attendee Information</p>
+                         <p  class="fst-italic"><i class="fa fa-commenting" aria-hidden="true"></i>  {{bk.additionalNotes}}</p>
+
+                      
+                         <p ><i class="fa fa-envelope" aria-hidden="true"></i>   <a href = "mailto: {{bk.appointmentBookedEmail}}">{{bk.appointmentBookedEmail}}</a> <span *ngIf="bk.appointmentGuestEmail !=null" > , <a href = "mailto: {{bk.appointmentGuestEmail}}"> {{bk.appointmentGuestEmail}}</a> (Guest)</span> </p>
+
+                          <p ><i class="fa fa-phone-square" aria-hidden="true"></i>  {{bk.appointmentBookedPhoneNumber}}</p>
+
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  </div>
+                  <ng-template #elseBlock>
+                    <div class="row  mx-1 my-2" >
+                      <div class="col-md-12 mb-2 text-dark bg-white border border-1 shadow-sm bg-body rounded"  >
+                       <div class=" pt-5 pb-5 text-center ">
+                         <img src="https://byblosmiami.com/wp-content/plugins/elementor/assets/images/no-search-results.svg" alt="" class="pb-4">
+                        </div>
+                     </div>
+                  </div>
+                  </ng-template>
+                </div>
+                
+                <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+                  <div *ngIf="completedBookings.length !=0; else elseBlock"  > 
+                  <div class="row mx-1 my-2">
+                    <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body" *ngFor="let bk of completedBookings;index as indexOfelement;">
+                      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+                        <div>
+                          <span class="badge rounded-pill bg-success mb-2">Completed</span>
+                          <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                          <div >
+                            <span ><i class="fa fa-clock-o" aria-hidden="true"></i>  {{completedTimingsData[indexOfelement][0].userstartTime}} - {{completedTimingsData[indexOfelement][0].userEndTime}} ({{completedTimingsData[indexOfelement][0].userTimezone}}) </span><br/>
+                            <span><i class="fa fa-calendar-o" aria-hidden="true"></i>  {{completedTimingsData[indexOfelement][0].userbookedDate}}</span>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <!-- <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                            <div class="btn-group me-2 ">
+                              <button type="button" class="btn btn-sm btn-warning" style="margin-right: 4px;"><i class="fa fa-repeat" aria-hidden="true"></i> Reschedule</button>
+                              <button type="button" class="btn btn-sm btn-danger" style="margin-right: 4px;"><i class="fa fa-window-close" aria-hidden="true"></i> Cancel</button>
+                        </div>
+                          </div> -->
+                        </div>
+                        <div>
+                          <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                         <div class="btn-group me-2 ">
+                             
+                           <button type="button"  class="btn btn-outline-dark" style="margin-right: 4px;"  data-bs-toggle="collapse" [attr.href]="'#collapseExample' + indexOfelement" role="button" aria-expanded="false"  [attr.aria-controls]="'#collapseExample' + indexOfelement" ><i class="fa fa-arrow-down" aria-hidden="true"></i> View Deatils</button>
+                         </div>
+                       
+                       </div>
+                         </div>
+                      </div>
+
+                      <div class="collapse mb-4" id="collapseExample{{indexOfelement}}">
+                        <div class="card card-body">
+                          <p class="fw-bold badge bg-primary text-wrap" style="width: 10rem;">Attendee Information</p>
+                         <p  class="fst-italic"><i class="fa fa-commenting" aria-hidden="true"></i>  {{bk.additionalNotes}}</p>
+
+                      
+                         <p ><i class="fa fa-envelope" aria-hidden="true"></i>   <a href = "mailto: {{bk.appointmentBookedEmail}}">{{bk.appointmentBookedEmail}}</a> <span *ngIf="bk.appointmentGuestEmail !=null" > , <a href = "mailto: {{bk.appointmentGuestEmail}}"> {{bk.appointmentGuestEmail}}</a> (Guest)</span> </p>
+
+                          <p ><i class="fa fa-phone-square" aria-hidden="true"></i>  {{bk.appointmentBookedPhoneNumber}}</p>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+                
+              </div>
+
+               
+              <div class="tab-pane fade" id="rescheduled" role="tabpanel" aria-labelledby="rescheduled-tab">
+                <div *ngIf="rescheduleBookings.length !=0; else elseBlock"  > 
+                <div class="row mx-1 my-2">
+                  
+                  <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body" *ngFor="let bk of rescheduleBookings;index as indexOfelement;">
+                  
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+                      <div>
+                        <span class="badge rounded-pill bg-warning text-dark mb-2">Rescheduled</span>
+                      
+                        <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                        <div >
+                          <span ><i class="fa fa-clock-o" aria-hidden="true"></i>  {{rescheduleTimingsData[indexOfelement][0].userstartTime}} - {{rescheduleTimingsData[indexOfelement][0].userEndTime}}  ({{rescheduleTimingsData[indexOfelement][0].userTimezone}}) </span><br/>
+                          <span><i class="fa fa-calendar-o" aria-hidden="true"></i>  {{rescheduleTimingsData[indexOfelement][0].userbookedDate}}</span>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <!-- <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                          <div class="btn-group me-2 ">
+                            <button type="button" class="btn btn-sm btn-warning" style="margin-right: 4px;"><i class="fa fa-envelope" aria-hidden="true"></i> Send Reschedule Mail</button>
+                            <button type="button" class="btn btn-sm btn-danger" (click)="updateOnCancel(bk.bookingId)"><i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+                          </div>
+                        </div> -->
+                        <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                          <div class="btn-group me-2 ">
+                           
+                              <button type="button" class="btn btn-sm btn-danger" style="margin-right: 4px;" (click)="updateOnCancelReschedule(bk._id,indexOfelement)"><i class="fa fa-window-close" aria-hidden="true"></i> Cancel</button>
+                            
+                            <button type="button"  class="btn btn-outline-dark" style="margin-right: 4px;"  data-bs-toggle="collapse" [attr.href]="'#collapseExample' + indexOfelement" role="button" aria-expanded="false"  [attr.aria-controls]="'#collapseExample' + indexOfelement" ><i class="fa fa-arrow-down" aria-hidden="true"></i> View Deatils</button>
+                          </div>
+                        
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div class="collapse mb-4" id="collapseExample{{indexOfelement}}">
+                      <div class="card card-body">
+                        <p class="fw-bold badge bg-primary text-wrap" style="width: 10rem;">Attendee Information</p>
+                       <p  class="fst-italic"><i class="fa fa-commenting" aria-hidden="true"></i>  {{bk.additionalNotes}}</p>
+
+                    
+                       <p ><i class="fa fa-envelope" aria-hidden="true"></i>   <a href = "mailto: {{bk.appointmentBookedEmail}}">{{bk.appointmentBookedEmail}}</a> <span *ngIf="bk.appointmentGuestEmail !=null" > , <a href = "mailto: {{bk.appointmentGuestEmail}}"> {{bk.appointmentGuestEmail}}</a> (Guest)</span> </p>
+
+                        <p ><i class="fa fa-phone-square" aria-hidden="true"></i>  {{bk.appointmentBookedPhoneNumber}}</p>
+                         
+                        <!-- <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                          <div class="btn-group me-2 ">
+                         
+                            <button type="button" class="btn btn-sm btn-warning" style="margin-right: 4px;"><i class="fa fa-envelope" aria-hidden="true"></i> Send Reschedule Mail</button>
+                       
+                             </div>
+                        
+                        </div> -->
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <ng-template #elseBlock>
+                  <div class="row  mx-1 my-2" >
+                    <div class="col-md-12 mb-2 text-dark bg-white border border-1 shadow-sm bg-body rounded"  >
+                     <div class=" pt-5 pb-5 text-center ">
+                       <img src="https://byblosmiami.com/wp-content/plugins/elementor/assets/images/no-search-results.svg" alt="" class="pb-4">
+                      </div>
+                   </div>
+                </div>
+                </ng-template>
+              </div>
+        </div>
+      
+    
+      </div>
+    </div>

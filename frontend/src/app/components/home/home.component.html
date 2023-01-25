@@ -16,6 +16,33 @@
           & we would love to know your experience with us.  <a href="https://forms.gle/nRaj4SfwC8zS2v6x6" class="text-white" target="_blank">Click Here </a>
          <img src="https://topmate.io/static/media/icon-featured.aae9bc929fe26b6c86e66685f1753a4a.svg" alt=""> </p>
     </div>
+
+    <div class="row align-items-md-stretch ">
+
+      <!-- <div class="col-md-6">
+        <div class="h-100 p-5 bg-light border rounded-3  ">
+          <h2>Intregration App Store</h2>
+          <p>Connecting people, technology and the workplace.</p>
+          <button class="btn btn-outline-secondary" type="button"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+      </div> -->
+      <div class="col-md-6 mb-2">
+        <div class="h-100 p-5 text-white bg-blueClr rounded-3 apps-addon">
+          <img src="https://requesttalk.netlify.app/assets/images/googleCalendar.svg" alt="" class="mb-4">
+          <h2>Google Calendar</h2>
+  
+          <p>Google Calendar is a time management and scheduling service developed by Google. Allows users to create and
+            edit events, with options available for type and time. Available to anyone that has a Gmail account on both
+            mobile and web versions.</p>
+  
+          <button class="btn btn-outline-light" type="button" *ngIf="isSignedIn" (click)="handleSignoutClick()"><i
+              class="fa fa-check-circle" aria-hidden="true"></i> Unlink</button>
+          <button class="btn btn-outline-light" type="button" *ngIf="!isSignedIn" (click)="handleAuthClick()"><i
+              class="fa fa-plus-square" aria-hidden="true"></i> Link</button>
+  
+        </div>
+      </div>
+      </div>
    
   
     <footer class="pt-3 pb-4 mt-5 text-muted border-top ">

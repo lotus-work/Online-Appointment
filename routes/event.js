@@ -4,6 +4,17 @@ const router = express.Router();
 const Event = require('../models/event');
 
 
+// GET PUBLIC USER AVAILIBITY
+router.get('/get/public/:userId/:url', async(req,res)=>{
+    try {
+        const event = await Event.find({ userId: req.params.userId, url: req.params.url });
+        res.json(event);
+
+    } catch (err) {
+        res.send('Error ' + err);
+    }
+})
+
 // ALL EVENT BY USERID
 router.get('/get/all/:userId', async (req, res) => {
     try {

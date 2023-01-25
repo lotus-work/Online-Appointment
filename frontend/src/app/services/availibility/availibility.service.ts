@@ -11,6 +11,10 @@ export class AvailibilityService {
   private availability_api_url: string = 'http://localhost:9000/availability';
   constructor(private http: HttpClient) { }
 
+  publicgetAvaibilityData(userId: string, availId: string): Observable<IAvailibility[]> {
+    return this.http.get<IAvailibility[]>(this.availability_api_url +"/get/public/" + userId + "/" + availId).pipe(catchError(this.errorHandler));
+  }
+
   getAllAvaibility(userId: string): Observable<IAvailibility[]> {
     return this.http.get<IAvailibility[]>(this.availability_api_url + "/get/all/" + userId).pipe(catchError(this.errorHandler));
   }

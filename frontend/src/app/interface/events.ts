@@ -5,7 +5,7 @@ export interface IEvents{
     url: string,
     description: string,
     length: number,
-    availabilityId: number,
+    availabilityId: string,
     eventName: string,
     location: string,
     optInBooking: string,

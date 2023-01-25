@@ -11,6 +11,10 @@ export class EventsService {
   private event_api_url: string = 'http://localhost:9000/event';
   constructor(private http: HttpClient) { }
 
+  publicgetEventData(userId: string, url: string): Observable<IEvents[]> {
+    return this.http.get<IEvents[]>(this.event_api_url +"/get/public/" + userId + "/" + url).pipe(catchError(this.errorHandler));
+  }
+
   getAllEvents(userId: string): Observable<IEvents[]> {
     return this.http.get<IEvents[]>(this.event_api_url + "/get/all/" + userId).pipe(catchError(this.errorHandler));
   }

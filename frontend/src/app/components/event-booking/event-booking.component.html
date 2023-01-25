@@ -1,0 +1,198 @@
+<div class="container-fluid ">
+    <div class="row ">
+      <div class="col-lg-5 col-md-5 col-sm-12 vh-100 text-light area d-flex align-items-center d-flex justify-content-center">
+  
+          <div class="profile-desc p-2 ">
+            <div class="company-logo">
+              <a href="https://requesttalk.netlify.app" target="_blank"><img src="https://requesttalk.netlify.app/assets/images/RequestTalkWhite.svg" alt=""></a>
+            </div>
+            <div class="text-center">
+              <img src="{{userProfilePicture}}" class="rounded-circle" alt="...">
+              <div class="mt-3">
+                <span class="badge bg-dark text-light fs-3"><i class="fa fa-clock-o" aria-hidden="true"></i> {{eventDuration}} mins</span>
+             
+                <h1 class="fw-bolder fs-1 mt-2"> Meeting with {{userName}} </h1>
+                 <h2 class="fw-bold ">{{eventTitle}}</h2>
+  
+                <p class=" mt-4">{{eventDesc}}</p>
+               
+              </div>
+             
+            </div>
+          </div>
+          <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>  
+      <div class="col-lg-7 col-md-7 col-sm-12 d-flex align-items-center my-5 event-booking ">
+          <div class="row d-flex justify-content-evenly ">
+            <div class="col-lg-10 col-md-10 col-sm-12 p-2 p-md-3">
+              <form class="row g-3 ">
+                <div class="col-md-6 ">
+                  <label for="bookingDate" class="form-label fw-bold">Select Date</label>
+                  <input type="date" class="form-control" name="bookingDate" id="bookingDate"
+                    (change)="chnageOfTime($event)" min={{setDeafultDateset}}>
+                </div>
+                <div class="col-md-6">
+                  <label for="timezone" class="form-label fw-bold">Your Timezone</label>
+                  <select class="form-select" id="timezone" name="timezone" (change)="onChange($event)">
+                    <option *ngFor="let opt of this.timeZoneArr" [value]="opt.value" [selected]="opt.status == 'true'">
+                      {{opt.label}}</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+          <!-- <div *ngIf="showMe">
+        <button type="button" class="btn btn-sm btn-outline-secondary"  (click)="toogleButton()">Toggle</button>
+      </div>
+      <ng-template #other_content>other content here...</ng-template> -->
+          <div class="row d-flex justify-content-center mt-3">
+            <div class="col-lg-10 col-md-10 col-sm-12 p-2 p-md-3 ">
+              <div class="profile-desc mb-4">
+                <div class="text-center">
+                  <h4 class="fw-bold fs-2">WHAT TIME WORKS BEST ?</h4>
+                  <h5 id="currentDayTimeText" class="fst-italic">Tuesday, 3rd April, 2022</h5>
+                </div>
+              </div>
+    
+              <div class="row row-cols-2 row-cols-lg-6 g-3 g-lg-2 justify-content-center "
+                *ngIf="generatedTimingArr.length !=0 else elseBlock">
+                <div class="col d-flex justify-content-center"
+                  *ngFor="let opt of generatedTimingArr;index as indexOfelement;">
+                  <button type="button" class="btn btn-outline-dark col " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="getDetailsFunc(opt.timeSlotStart,opt.timeSlotEnd ,indexOfelement)"
+                    *ngIf="opt.timeSlotStart != 'Booked' else removeBlock">{{opt.timeSlotStart}}</button>
+                  <ng-template #removeBlock>
+                    <button type="button" class="btn btn-dark " data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      (click)="getDetailsFunc(opt.timeSlotStart,opt.timeSlotEnd ,indexOfelement)"
+                      disabled>{{opt.timeSlotStart}}</button>
+    
+                  </ng-template>
+    
+                </div>
+              </div>
+              <ng-template #elseBlock>
+                <div class="text-center pt-5">
+                  <h3 class="text-muted"> SORRY, I AM NOT AVAILABLE 😬 </h3>
+    
+                </div>
+              </ng-template>
+    
+              <!-- Modal -->
+              <div class="modal fade text-dark " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+    
+                    <div class="modal-body">
+                      <h5 class="fw-bolder">Meeting with {{userName}}</h5>
+                      <h6 class="fw-bold">{{eventTitle}}</h6>
+                      <span><i class="fa fa-clock-o" aria-hidden="true"></i> {{eventDuration}} Minutes</span> <br />
+                      <span><i class="fa fa-calendar" aria-hidden="true"></i> {{bookedStartTime}}, {{bookedWeekname}},
+                        {{bookedDate}}</span><br />
+                      <span><i class="fa fa-globe" aria-hidden="true"></i> {{timezoneGetValueOption}}</span>
+                      <form #addNewBooking="ngForm" (ngSubmit)="addNewBookingFunc(addNewBooking)"
+                        class="ng-untouched ng-pristine ng-invalid">
+    
+                        <div class="form-group">
+                          <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label"> Name</label>
+                            <input type="text" placeholder="Your Name" name="name" #nameRef="ngModel" class="form-control "
+                              ngModel required>
+                          </div>
+                          <div *ngIf="nameRef.errors && (nameRef.dirty || nameRef.touched)"
+                            style="text-align:left; color:red;">
+                            <div [hidden]="!nameRef.errors">
+                              <p>&nbsp; Name is mandatory</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="mb-3">
+                            <label for="recipient-number" class="col-form-label"> Phone Number </label>
+                            <input type="tel" placeholder="+91 82 50366763" name="phoneNumber" #phoneNumberRef="ngModel"
+                              class="form-control " ngModel required>
+                          </div>
+                          <div *ngIf="phoneNumberRef.errors && (phoneNumberRef.dirty || phoneNumberRef.touched)"
+                            style="text-align:left; color:red;">
+                            <div [hidden]="!emailIdRef.errors">
+                              <p>&nbsp;Your Phone Number is mandatory</p>
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="form-group">
+                          <div class="mb-3">
+                            <label for="recipient-email" class="col-form-label"> Email </label>
+                            <input type="email" placeholder="you@example.com" name="emailId" #emailIdRef="ngModel"
+                              class="form-control " ngModel required>
+                          </div>
+                          <div *ngIf="emailIdRef.errors && (emailIdRef.dirty || emailIdRef.touched)"
+                            style="text-align:left; color:red;">
+                            <div [hidden]="!emailIdRef.errors">
+                              <p>&nbsp;Your Email is mandatory</p>
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="form-group" *ngIf="eventCheckGuestStatus == 'No';">
+                          <div class="mb-3">
+                            <label for="recipient-guest-email" class="col-form-label">Guest </label>
+                            <input type="email" placeholder="guest@example.com" name="guestemailId" class="form-control "
+                              ngModel>
+                          </div>
+                        </div>
+    
+    
+    
+                        <div class="form-group">
+                          <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Additional Notes (Optional)</label>
+                            <textarea id="message-text" placeholder="A Quick Meeting" name="additionalNotes"
+                              class="form-control " ngModel></textarea>
+                          </div>
+    
+                        </div>
+    
+    
+    
+    
+    
+    
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success " [disabled]="!addNewBooking.form.valid">
+                            Confirm</button>
+    
+                        </div>
+    
+                      </form>
+                    </div>
+    
+                  </div>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  
+  
+  
+  
+  
+  
+  </div>

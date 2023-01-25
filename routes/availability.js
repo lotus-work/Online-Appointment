@@ -3,6 +3,19 @@ const router = express.Router();
 
 const Availablity = require('../models/availability');
 
+
+// GET PUBLIC USER AVAILIBITY
+router.get('/get/public/:userId/:availabilityId', async(req,res)=>{
+    try {
+        const availability = await Availablity.find({ userId: req.params.userId, _id: req.params.availabilityId });
+        res.json(availability)
+
+    } catch (err) {
+        res.send('Error ' + err);
+    }
+})
+
+
 // ALL AVAILIBITY BY USERID
 router.get('/get/all/:userId', async (req, res) => {
     try {
