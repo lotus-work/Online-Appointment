@@ -1,11 +1,14 @@
 <div class="container-fluid ">
-    <div class="row ">
+  
+  <div class="company-logo">
+    <a href="https://requesttalk.netlify.app" target="_blank"><img src="https://requesttalk.netlify.app/assets/images/RequestTalkWhite.svg" alt=""></a>
+  </div>
+
+   <div class="row ">
       <div class="col-lg-5 col-md-5 col-sm-12 vh-100 text-light area d-flex align-items-center d-flex justify-content-center">
   
           <div class="profile-desc p-2 ">
-            <div class="company-logo">
-              <a href="https://requesttalk.netlify.app" target="_blank"><img src="https://requesttalk.netlify.app/assets/images/RequestTalkWhite.svg" alt=""></a>
-            </div>
+
             <div class="text-center">
               <img src="{{userProfilePicture}}" class="rounded-circle  user-img" alt="...">
               <div class="mt-3">
@@ -115,7 +118,8 @@
                           <div *ngIf="nameRef.errors && (nameRef.dirty || nameRef.touched)"
                             style="text-align:left; color:red;">
                             <div [hidden]="!nameRef.errors">
-                              <p>&nbsp; Name is mandatory</p>
+                              <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
                             </div>
                           </div>
                         </div>
@@ -128,7 +132,8 @@
                           <div *ngIf="phoneNumberRef.errors && (phoneNumberRef.dirty || phoneNumberRef.touched)"
                             style="text-align:left; color:red;">
                             <div [hidden]="!emailIdRef.errors">
-                              <p>&nbsp;Your Phone Number is mandatory</p>
+                              <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
                             </div>
                           </div>
                         </div>
@@ -142,7 +147,8 @@
                           <div *ngIf="emailIdRef.errors && (emailIdRef.dirty || emailIdRef.touched)"
                             style="text-align:left; color:red;">
                             <div [hidden]="!emailIdRef.errors">
-                              <p>&nbsp;Your Email is mandatory</p>
+                              <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
                             </div>
                           </div>
                         </div>

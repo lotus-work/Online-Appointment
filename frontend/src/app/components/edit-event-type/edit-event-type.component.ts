@@ -18,7 +18,7 @@ export class EditEventTypeComponent {
 
   tempavaibility: IAvailibility[] = [];
 
-  avaibility: any;
+  avaibility: any = [];
   status: boolean = false;
   errMsg!: string;
   userId: string  | null;
@@ -35,6 +35,7 @@ export class EditEventTypeComponent {
     { id: 2, label: "Google Meet", status: "false" },
     
   ];
+
   
   
   intervalArr = [
@@ -83,11 +84,21 @@ export class EditEventTypeComponent {
         }, 1000);
         this.tempavaibility = res;
         console.log(this.tempavaibility);
-        this.avaibility = this.uniqueByKey(this.tempavaibility, 'availabilityId');
-        for (var i = 0; i < this.avaibility.length; i++) {
-          this.avaibility[i].status = "false";
-
+        // this.avaibility = this.uniqueByKey(this.tempavaibility, '_id');
+        for (var i = 0; i < this.tempavaibility.length; i++) {
+          // this.avaibility[i].status = "false";
+          this.avaibility.push( { id: i,availId : this.tempavaibility[i]._id, label: this.tempavaibility[i].availabilityName, status: "false" });
+          
         }
+        console.log(this.avaibility);
+
+        // for(var i =0;i<this.avaibility.length;i++)
+        // {
+        //   if(this.avaibility[i].availId == this.eventDetails[0].availabilityId)
+        //   {
+        //     this.avaibility[i].status = "true";
+        //   }
+        // }
         console.log( "Avail " + this.avaibility);
 
       }, err => {

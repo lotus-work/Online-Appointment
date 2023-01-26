@@ -3,10 +3,14 @@
 }
 
 .company-logo img {
+    padding-top: 10px;
     position: absolute;
-    top: -240px;
-    opacity: 0.5;
+    top: 8px;
+    left: 16px;
+    width: 190px;
+    z-index: 10;
 }
+
 
 .profile-desc .user-img {
     width: 240px;

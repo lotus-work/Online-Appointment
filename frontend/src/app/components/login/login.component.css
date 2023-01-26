@@ -1,5 +1,12 @@
 a {
     text-decoration: none;
-
+}
+.company-logo img {
+    padding-top: 10px;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    width: 190px;
+    z-index: 10;
 }
 

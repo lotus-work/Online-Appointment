@@ -1,17 +1,24 @@
-.event-booking{
+.event-booking {
     position: relative;
 }
-.profile-desc{
+
+.profile-desc {
     position: relative;
 }
-.company-logo img{
+
+
+.company-logo img {
+    padding-top: 10px;
     position: absolute;
-    top: -200px;
-    opacity: 0.5;
+    top: 8px;
+    left: 16px;
+    width: 190px;
+    z-index: 10;
 }
-.profile-desc img{
-width: 240px;
-height: 240px;
+
+.profile-desc img {
+    width: 240px;
+    height: 240px;
 }
 
 

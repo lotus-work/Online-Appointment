@@ -53,7 +53,8 @@
                   <div *ngIf="titleRef.errors && (titleRef.dirty || titleRef.touched)"
                     style="text-align:left; color:red;">
                     <div [hidden]="!titleRef.errors">
-                      <p>&nbsp;Event Title is mandatory</p>
+                      <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
                     </div>
                   </div>
                 </div>
@@ -68,7 +69,8 @@
   
                   <div *ngIf="lenRef.errors && (lenRef.dirty || lenRef.touched)" style="text-align:left; color:red;">
                     <div [hidden]="!lenRef.errors">
-                      <p>&nbsp;Length is mandatory</p>
+                      <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
                     </div>
                   </div>
                 </div>
@@ -85,7 +87,8 @@
                   <div *ngIf="evtNameRef.errors && (evtNameRef.dirty || evtNameRef.touched)"
                     style="text-align:left; color:red;">
                     <div [hidden]="!evtNameRef.errors">
-                      <p>&nbsp;Event Name is mandatory</p>
+                      <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
                     </div>
                   </div>
                 </div>
@@ -114,7 +117,8 @@
   
                   <div *ngIf="descRef.errors && (descRef.dirty || descRef.touched)" style="text-align:left; color:red;">
                     <div [hidden]="!descRef.errors">
-                      <p>&nbsp;Description is mandatory</p>
+                      <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+             
                     </div>
                   </div>
                 </div>
@@ -125,8 +129,8 @@
                   <div class="mb-3">
                     <label for="availability" class="form-label">Availability </label>
                     <select class="form-select" id="availability" required="">
-                      <option *ngFor="let opt of this.avaibility" [value]="opt._id" [selected]="opt.status == 'true'">
-                        {{opt.availabilityName}}</option>
+                      <option *ngFor="let opt of this.avaibility" [value]="opt.availId" [selected]="opt.availId == eventDetails[0].availabilityId">
+                        {{opt.label}}</option>
   
                     </select>
   

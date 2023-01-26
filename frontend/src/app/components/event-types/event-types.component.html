@@ -125,13 +125,15 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
         
           <div>
-              <p class="imp-head">{{evt.title}} <span class="fst-italic">/{{userName}}/{{evt.url}}</span></p>
+              <p class="imp-head">{{evt.title}} <span class="fst-italic">/{{userName}}/{{evt.url}}</span>  <span *ngIf="evt.hideEventType == 'Yes'" class="bg-grey p-1 ms-2"><small ><i class="fa fa-eye-slash" aria-hidden="true"></i> Hidden</small> </span>
+              </p>
          
             <p >{{ (evt.description.length>100)? (evt.description | slice:0:100)+'..':(evt.description) }}  </p>
             <div>
               <span><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{evt.length}}m</small></span>
               <span class="mx-3"><small><i class="fa fa-user" aria-hidden="true"></i> 1-on-1</small></span>
               <span *ngIf="evt.optInBooking == 'Yes'" class="bg-grey p-1"><small ><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Requires Confirmation</small> </span>
+             
             </div>
           </div>
           <div>
