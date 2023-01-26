@@ -49,7 +49,7 @@
                         <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body rounded" *ngFor="let bk of onHoldBookings;index as indexOfelement;">
                           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
                             <div>
-                              <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                              <p class="imp-head">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
                               <div >
                                 <span ><i class="fa fa-clock-o" aria-hidden="true"></i>  {{onHoldTimingsData[indexOfelement][0].userstartTime}} - {{onHoldTimingsData[indexOfelement][0].userEndTime}} ({{onHoldTimingsData[indexOfelement][0].userTimezone}}) </span><br/>
                                 <span><i class="fa fa-calendar-o" aria-hidden="true"></i>  {{onHoldTimingsData[indexOfelement][0].userbookedDate}}</span>
@@ -99,7 +99,7 @@
                     <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body rounded" *ngFor="let bk of upcomingBookings;index as indexOfelement;">
                       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
                         <div>
-                        <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                        <p class="imp-head">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
                           <div >
                             <span ><i class="fa fa-clock-o" aria-hidden="true"></i>   {{upcomingTimingsData[indexOfelement][0].userstartTime}} - {{upcomingTimingsData[indexOfelement][0].userEndTime}} ({{upcomingTimingsData[indexOfelement][0].userTimezone}})</span><br/>
                             <span><i class="fa fa-calendar-o" aria-hidden="true"></i>   {{upcomingTimingsData[indexOfelement][0].userbookedDate}}</span>
@@ -165,7 +165,7 @@
                     <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body" *ngFor="let bk of pastBookings;index as indexOfelement;">
                       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
                         <div>
-                          <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                          <p class="imp-head">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
                            <div >
                             <span ><i class="fa fa-clock-o" aria-hidden="true"></i>  {{pastTimingsData[indexOfelement][0].userstartTime}} - {{pastTimingsData[indexOfelement][0].userEndTime}} ({{pastTimingsData[indexOfelement][0].userTimezone}})</span><br/>
                             <span><i class="fa fa-calendar-o" aria-hidden="true"></i>  {{pastTimingsData[indexOfelement][0].userbookedDate}}</span>
@@ -278,7 +278,7 @@
                       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
                         <div>
                           <span class="badge rounded-pill bg-success mb-2">Completed</span>
-                          <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                          <p class="imp-head">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
                           <div >
                             <span ><i class="fa fa-clock-o" aria-hidden="true"></i>  {{completedTimingsData[indexOfelement][0].userstartTime}} - {{completedTimingsData[indexOfelement][0].userEndTime}} ({{completedTimingsData[indexOfelement][0].userTimezone}}) </span><br/>
                             <span><i class="fa fa-calendar-o" aria-hidden="true"></i>  {{completedTimingsData[indexOfelement][0].userbookedDate}}</span>
@@ -334,7 +334,7 @@
                       <div>
                         <span class="badge rounded-pill bg-warning text-dark mb-2">Rescheduled</span>
                       
-                        <p class="fw-bold">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
+                        <p class="imp-head">{{bk.bookedEventName}} <span class="fst-italic">between {{fullNameCurrentUser}} & {{bk.appointmentBookedUsername}}</span></p>
                         <div >
                           <span ><i class="fa fa-clock-o" aria-hidden="true"></i>  {{rescheduleTimingsData[indexOfelement][0].userstartTime}} - {{rescheduleTimingsData[indexOfelement][0].userEndTime}}  ({{rescheduleTimingsData[indexOfelement][0].userTimezone}}) </span><br/>
                           <span><i class="fa fa-calendar-o" aria-hidden="true"></i>  {{rescheduleTimingsData[indexOfelement][0].userbookedDate}}</span>

@@ -10,6 +10,9 @@ import { EventsService } from 'src/app/services/events/events.service';
 import { UserService } from 'src/app/services/user/user.service';
 import * as moment from 'moment';
 import * as momenttm from 'moment-timezone';
+import cryptoRandomString from 'crypto-random-string';
+
+
 declare var gapi : any;
 @Component({
   selector: 'app-bookings',
@@ -239,46 +242,97 @@ completedTimingsData : any =[ ];
     console.log(startTime);
       if(this.upcomingBookings[Number(indexNum)].appointmentGuestEmail == null)
       {
-        var request =   gapi.client.calendar.events.insert({
-          'calendarId': 'primary',
-          sendNotifications: true,
-          sendUpdates: 'all',
-          conferenceDataVersion: 1,
-          'resource': {
-            'summary': this.eventDetails[0].eventName ,
-            'location': 'Google Meet',
-            'description': this.eventDetails[0].description,
-            
-            'start': {
-              'dateTime': startTime,
-              'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
-            },
-            'end': {
-              'dateTime': endTime,
-              'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
-            },
-            'attendees': [
-              {'email': this.upcomingBookings[Number(indexNum)].appointmentBookedEmail}
-            ],
-            "conferenceData": {
-              "createRequest": {
-                "conferenceSolutionKey": {
-                  "type": "hangoutsMeet",
-                },
-                "requestId": "7qxalsvy0exxaje",
-                
+
+        if(this.eventDetails[0].location == "Google Meet")
+        {
+          var request =   gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            sendNotifications: true,
+            sendUpdates: 'all',
+            conferenceDataVersion: 1,
+            'resource': {
+              'summary': this.eventDetails[0].eventName ,
+              'location': 'Google Meet',
+              'description': this.eventDetails[0].description,
+              
+              'start': {
+                'dateTime': startTime,
+                'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
+              },
+              'end': {
+                'dateTime': endTime,
+                'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
+              },
+              'attendees': [
+                {'email': this.upcomingBookings[Number(indexNum)].appointmentBookedEmail}
+              ],
+              "conferenceData": {
+                "createRequest": {
+                  "conferenceSolutionKey": {
+                    "type": "hangoutsMeet",
+                  },
+                  "requestId": "7qxalsvy0exxaje",
+                  
+                }
+              },
+              
+              'reminders': {
+                'useDefault': false,
+                'overrides': [
+                  {'method': 'email', 'minutes': 24 * 60},
+                  {'method': 'popup', 'minutes': 10}
+                ]
               }
-            },
-            
-            'reminders': {
-              'useDefault': false,
-              'overrides': [
-                {'method': 'email', 'minutes': 24 * 60},
-                {'method': 'popup', 'minutes': 10}
-              ]
             }
-          }
-        })
+          })
+        }
+        else if(this.eventDetails[0].location == "Jitsi Meet")
+        {
+          var request =   gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            sendNotifications: true,
+            sendUpdates: 'all',
+            conferenceDataVersion: 1,
+            'resource': {
+              'summary': this.eventDetails[0].eventName ,
+              'location': 'Jitsi Meet',
+              'description': this.eventDetails[0].description,
+              
+              'start': {
+                'dateTime': startTime,
+                'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
+              },
+              'end': {
+                'dateTime': endTime,
+                'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
+              },
+              'attendees': [
+                {'email': this.upcomingBookings[Number(indexNum)].appointmentBookedEmail}
+              ],
+              "conferenceData": {
+                "conferenceSolution": {
+                  "key": { "type": "addOn" },
+                  "name": "Jitsi Meet",
+                },
+                "entryPoints": [
+                  {
+                    "entryPointType": "video",
+                    "uri": "https://meet.jit.si/" + this.username + "/"+ cryptoRandomString({length: 7, type: 'base64'}),
+                  },
+                ],
+                },
+              
+              'reminders': {
+                'useDefault': false,
+                'overrides': [
+                  {'method': 'email', 'minutes': 24 * 60},
+                  {'method': 'popup', 'minutes': 10}
+                ]
+              }
+            }
+          })
+        }
+    
     
         request.execute((resp: any) => {
           console.log(resp.status);
@@ -335,48 +389,101 @@ completedTimingsData : any =[ ];
 
       }
       else {
-        var request =   gapi.client.calendar.events.insert({
-          'calendarId': 'primary',
-          sendNotifications: true,
-          sendUpdates: 'all',
-          conferenceDataVersion: 1,
-          'resource': {
-            'summary': this.eventDetails[0].eventName,
-            'location': 'Google Meet',
-            'description': this.eventDetails[0].description,
-            
-            'start': {
-              'dateTime': startTime,
-              'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
-            },
-            'end': {
-              'dateTime': endTime,
-              'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
-            },
-            'attendees': [
-              {'email': this.upcomingBookings[Number(indexNum)].appointmentBookedEmail},
-              {'email': this.upcomingBookings[Number(indexNum)].appointmentGuestEmail}
-            ],
-            "conferenceData": {
-              "createRequest": {
-                "conferenceSolutionKey": {
-                  "type": "hangoutsMeet",
-                },
-                "requestId": "7qxalsvy0exxaje",
-                
+
+        if(this.eventDetails[0].location == "Google Meet")
+        {
+          var request =   gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            sendNotifications: true,
+            sendUpdates: 'all',
+            conferenceDataVersion: 1,
+            'resource': {
+              'summary': this.eventDetails[0].eventName,
+              'location': 'Google Meet',
+              'description': this.eventDetails[0].description,
+              
+              'start': {
+                'dateTime': startTime,
+                'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
+              },
+              'end': {
+                'dateTime': endTime,
+                'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
+              },
+              'attendees': [
+                {'email': this.upcomingBookings[Number(indexNum)].appointmentBookedEmail},
+                {'email': this.upcomingBookings[Number(indexNum)].appointmentGuestEmail}
+              ],
+              "conferenceData": {
+                "createRequest": {
+                  "conferenceSolutionKey": {
+                    "type": "hangoutsMeet",
+                  },
+                  "requestId": "7qxalsvy0exxaje",
+                  
+                }
+              },
+              
+              'reminders': {
+                'useDefault': false,
+                'overrides': [
+                  {'method': 'email', 'minutes': 24 * 60},
+                  {'method': 'popup', 'minutes': 10}
+                ]
               }
-            },
-            
-            'reminders': {
-              'useDefault': false,
-              'overrides': [
-                {'method': 'email', 'minutes': 24 * 60},
-                {'method': 'popup', 'minutes': 10}
-              ]
             }
-          }
-        })
-    
+          })
+      
+        }
+        else if(this.eventDetails[0].location == "Jitsi Meet")
+        {
+          
+          var request =   gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            sendNotifications: true,
+            sendUpdates: 'all',
+            conferenceDataVersion: 1,
+            'resource': {
+              'summary': this.eventDetails[0].eventName,
+              'location': 'Google Meet',
+              'description': this.eventDetails[0].description,
+              
+              'start': {
+                'dateTime': startTime,
+                'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
+              },
+              'end': {
+                'dateTime': endTime,
+                'timeZone': this.upcomingTimingsData[Number(indexNum)].userTimezone
+              },
+              'attendees': [
+                {'email': this.upcomingBookings[Number(indexNum)].appointmentBookedEmail},
+                {'email': this.upcomingBookings[Number(indexNum)].appointmentGuestEmail}
+              ],
+              "conferenceData": {
+                "conferenceSolution": {
+                  "key": { "type": "addOn" },
+                  "name": "Jitsi Meet",
+                },
+                "entryPoints": [
+                  {
+                    "entryPointType": "video",
+                    "uri": "https://meet.jit.si/" + this.username + "/"+ cryptoRandomString({length: 7, type: 'base64'}),
+                  },
+                ],
+                },
+              
+              'reminders': {
+                'useDefault': false,
+                'overrides': [
+                  {'method': 'email', 'minutes': 24 * 60},
+                  {'method': 'popup', 'minutes': 10}
+                ]
+              }
+            }
+          })
+        }
+      
         request.execute((resp: any) => {
           console.log(resp);
 

@@ -31,8 +31,11 @@ export class EditEventTypeComponent {
   // ];
 
   locationArr = [
-    { id: 2, label: "Google Meet", status: "false" }
+    { id: 1, label: "Jitsi Meet", status: "true" },
+    { id: 2, label: "Google Meet", status: "false" },
+    
   ];
+  
   
   intervalArr = [
     { id: 1, label: "Use Event Length (default)", duration: 0, status: "false" },

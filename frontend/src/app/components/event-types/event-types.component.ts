@@ -30,7 +30,9 @@ export class EventTypesComponent {
   
   
   locationArr = [
-    { id: 2, label: "Google Meet", status: "false" }
+    { id: 1, label: "Jitsi Meet", status: "true" },
+    { id: 2, label: "Google Meet", status: "false" },
+    
   ];
   
   

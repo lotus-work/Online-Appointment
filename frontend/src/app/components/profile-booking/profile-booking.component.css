@@ -1,29 +1,47 @@
-.profile-desc{
+.profile-desc {
     position: relative;
 }
-.company-logo img{
+
+.company-logo img {
     position: absolute;
     top: -240px;
     opacity: 0.5;
 }
-.profile-desc img{
+
+.profile-desc .user-img {
     width: 240px;
     height: 240px;
-    }
-    
-.direct-link{
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    border: 3px solid rgb(254, 252, 252);
+    padding: 4px;
+}
+
+.profile-desc .badge-img {
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.direct-link {
     text-decoration: none;
     color: black;
 }
-.startup-star i{
+
+.startup-star i {
     font-size: 20px;
     background-color: rgb(244, 244, 41);
     padding: 5px;
 }
+
 .reachOut {
     position: relative;
-   
+
 }
+
 .back-cal-img img {
     position: absolute;
     background-repeat: no-repeat;
@@ -34,11 +52,11 @@
     z-index: -1;
 }
 
-.reachOut .card{
-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+.reachOut .card {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.reachOut .card:hover{
-transition: 0.3s;
-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.reachOut .card:hover {
+    transition: 0.3s;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
