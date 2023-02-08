@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>Forgot password recovery</title>
+    <meta name="description" content="Forgot password recovery">
+</head>
+<body>
+    
+    <p><span style="font-family: 'times new roman', times;">Hi there,</span></p>
+    <p><span style="font-family: 'times new roman', times;">We have recieved a forgot password request from you. And we have reset your password ! Please do use these credentials to login from now on.</span></p>
+    <p><span style="font-family: 'times new roman', times;"><strong>Your New Login Credentials -&nbsp;</strong></span></p>
+    <p><span style="font-family: 'times new roman', times;">Email Address: ` +req.query.emailAddress + `</span></p>
+    <p><span style="font-family: 'times new roman', times;">New Password:  ` + req.query.password + `</span></p>
+    <p><span style="font-family: 'times new roman', times;">Thanks,<br />The RequestTalk Team</span></p>
+</body>
+</html>

@@ -14,6 +14,17 @@ export class UserService {
     return this.http.get<IUsers[]>(this.user_api_url +"/get/public/" + userName ).pipe(catchError(this.errorHandler));
   }
 
+  validateUserEmail( emailAdderss: string): Observable<boolean> {
+    console.log(emailAdderss);
+    return this.http.put<boolean>(this.user_api_url + "/validateUserEmail/" + emailAdderss , {
+      emailAdderss:emailAdderss, 
+    }).pipe(catchError(this.errorHandler));
+  }
+
+  getUserDataByEmail( emailAdderss: string ): Observable<IUsers[]> {
+    return this.http.get<IUsers[]>(this.user_api_url + "/get/userDataByEmail/" + emailAdderss ).pipe(catchError(this.errorHandler));
+  }
+
   registerUser(fullName: string, username: string, emailAddress: string, password: string,timezone: string): Observable<boolean> {
     console.log(fullName,username,emailAddress, password, timezone);
     return this.http.post<boolean>(this.user_api_url + "/signup", {
@@ -68,7 +79,7 @@ export class UserService {
 
   resetMail( emailAdderss: string, password: string): Observable<any> {
   
-    return this.http.get<any>("https://mail-backend.onrender.com/resetMail?emailAddress=" + emailAdderss + "&password=" +password ).pipe(catchError(this.errorHandler));
+    return this.http.get<any>("http://localhost:3000/resetMail?emailAddress=" + emailAdderss + "&password=" +password ).pipe(catchError(this.errorHandler));
   }
 
   sendBookingConfirmationMail( bookedEmailAdderss: string, userEmailAdderss: string, bookedName: string, eventName: string): Observable<any> {

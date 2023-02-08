@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const randomstring = require('randomstring');
 
 const User = require('../models/user');
 
@@ -14,9 +15,9 @@ router.get('/', async (req, res) => {
 })
 
 // GET PUBLIC USER DATA
-router.get('/get/public/:userName', async(req,res)=>{
+router.get('/get/public/:userName', async (req, res) => {
     try {
-        const user = await User.find({ userName: req.params.userName });
+        const user = await User.find({ username: req.params.userName });
         res.json(user)
 
     } catch (err) {
@@ -80,7 +81,7 @@ router.post('/signin', async (req, res) => {
         if (userExists) {
             return res.status(200).send([userExists]);
         }
-        else{
+        else {
             return res.status(200).json([]);
         }
     } catch (err) {
@@ -89,37 +90,37 @@ router.post('/signin', async (req, res) => {
 })
 
 //  UPDATE USER PROFILE PICTURE
-router.patch('/update/profilePicture/:id', async(req, res)=>{
-    try{
+router.patch('/update/profilePicture/:id', async (req, res) => {
+    try {
         const user = await User.findById(req.params.id);
-        user.profilePicture =req.body.profilePicture;      
+        user.profilePicture = req.body.profilePicture;
         const u1 = await user.save();
-        
+
         res.status(200).json(true);
-    
-    }catch (err) {
+
+    } catch (err) {
         return res.status(500).json([{ success: false, message: error.toString() }]);
     }
-       
+
 });
 
 //  UPDATE USER DATA
-router.put('/update/userData/:id', async(req, res)=>{
-    try{
+router.put('/update/userData/:id', async (req, res) => {
+    try {
         const user = await User.findById(req.params.id);
-        user.fullName =req.body.fullName;   
-        user.password =req.body.password;      
-        user.about =req.body.about;   
-        user.timezone =req.body.timezone;  
-      
+        user.fullName = req.body.fullName;
+        user.password = req.body.password;
+        user.about = req.body.about;
+        user.timezone = req.body.timezone;
+
         const u1 = await user.save();
-        
+
         res.status(200).json(true);
-    
-    }catch (err) {
+
+    } catch (err) {
         res.status(502).send('Error ' + err);
     }
-       
+
 });
 
 
@@ -137,13 +138,45 @@ router.get('/get/userDataById/:id', async (req, res) => {
 // GET USER BY USERNAME
 router.get('/get/userDataByUsername/:username', async (req, res) => {
     try {
-        const user = await User.findOne({username : req.params.username});
+        const user = await User.findOne({ username: req.params.username });
         res.json([user]);
 
     } catch (err) {
         return res.status(500).json([{ success: false, message: error.toString() }]);
     }
 })
+
+// GET USER BY EMAIL
+router.get('/get/userDataByEmail/:email', async (req, res) => {
+    try {
+        const user = await User.findOne({ emailAddress: req.params.email });
+        res.json([user]);
+
+    } catch (err) {
+        return res.status(500).json([{ success: false, message: error.toString() }]);
+    }
+})
+
+// VALIDATE USER EMAIL ADDRESS
+router.put('/validateUserEmail/:email', async (req, res) => {
+    try {
+        const user = await User.findOne({ emailAddress: req.params.email });
+
+        var pass = randomstring.generate({
+            length: 12,
+            charset: 'alphabetic'
+        });
+
+        user.password = pass;
+        const u1 = await user.save();
+
+        res.status(200).json(true);
+
+    } catch (err) {
+        return res.status(500).json([{ success: false, message: error.toString() }]);
+    }
+})
+
 
 
 
