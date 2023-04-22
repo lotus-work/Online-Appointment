@@ -1,0 +1,66 @@
+<div class="onboarding">
+  <nav class="navbar navbar-light bg-white sticky-top p-3 mb-3 border-bottom">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="https://requesttalk.netlify.app/assets/images/RequestTalk.svg" width="70%" alt="">
+       </a>
+    </div>
+   
+  </nav>
+<div class="container-fluid pt-lg-0 pt-md-3 pt-sm-3">
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 col-md-10 col-11 col-sm-11 p-0 justify-content-center align-items-center my-auto">
+            <div class="jumbotron text-center mb-3 d-flex flex-column justify-content-center google-cal">
+                <h1 class="fw-bolder">Welcome, {{fullNameCurrentUser}}!</h1>
+                <p class="fst-normal fs-5">Let's start your profile</p>
+            </div>
+            <div class="mx-auto " >
+                <div class="upload-img  mb-3">
+                    <div *ngIf="user[0].profilePicture !=null; else elseBlock">
+                      <img src="{{userProfilePicture}}" class="img-thumbnail rounded-circle" alt="" class="pb-2">
+                    </div>
+                    <ng-template #elseBlock>
+                      <img src="../../../assets/images/default-user.png" class="img-thumbnail rounded float-start rounded-circle" alt="" class="pb-2">
+                  
+                    </ng-template>
+                    <br/>
+                    <input type="file"  (input)="onInput($event)"  accept=".png, .jpg, .jpeg"/>
+                 
+                  </div>
+
+                  <form #updateForm="ngForm" (ngSubmit)="updateOnboardingUserData(updateForm)" class="needs-validation" novalidate="">
+                    <div class="row g-3">
+                    
+      
+                      <div class="col-12">
+                        <label for="about" class="form-label about">About</label>
+                        <textarea class="form-control" name="about" placeholder="A few sentences about yourself. this will appear on your personal url page."
+                        [(ngModel)]="user[0].about" rows="3" ngModel required></textarea>
+    
+                      </div>      
+      
+                      <div class="col-md-12">
+                        <label for="timezone" class="form-label">Timezone</label>
+                        
+                        <select  class="form-select" id="timezone" name="timezone">
+                          <option *ngFor="let opt of this.timeZoneArr" [value]="opt.label" [selected]="opt.status == 'true'">
+                            {{opt.label}}</option>
+                          
+                       </select>
+                     
+                      </div>
+                    </div>
+      
+                    <hr class="my-4">
+      
+      
+                    <button class="w-100 btn btn-primary btn-lg" [disabled]="!updateForm.form.valid"  type="submit" >Finish</button>
+                  </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</div>

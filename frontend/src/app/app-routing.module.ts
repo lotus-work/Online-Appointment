@@ -15,6 +15,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SuccessBookingComponent } from './components/success-booking/success-booking.component';
 import { AuthGuardService } from './services/auth-service/auth-guard.service';
+import { PreUserDeatilsComponent } from './components/pre-user-deatils/pre-user-deatils.component';
 
 const routes: Routes = [
   
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'edit-availability/:id', component: EditAvailabilityComponent, canActivate: [AuthGuardService]},
   {path:'settings', component: SettingsComponent, canActivate: [AuthGuardService]},
   {path:'bookings', component: BookingsComponent, canActivate: [AuthGuardService]},
+  {path: 'onboarding', component: PreUserDeatilsComponent},
   {path: 'calendar-intregration', component: GoogleCalendarIntregrationComponent, canActivate: [AuthGuardService]},
   {path: 'u/:username', component: ProfileBookingComponent},
   {path: 'u/:username/:event_id', component: EventBookingComponent},

@@ -13,14 +13,22 @@ body{
 button{
      font-family: 'Domine', serif;
 }
-h1,h2,h3,h4,h5, .imp-head{
+
+.btn{
+  border-radius: 120px;
+}
+
+h1,h2,h3,h4,h5, .imp-head,.form-label{
     font-family: 'Domine', serif;
 }
+
+
 .bg-blueClr{
   background: #6326dc;  
   background: -webkit-linear-gradient(to left, #8f94fb, #6326dc);  
   
 }
+
 .bg-grey{
     background-color: #F3F4F6;
 }

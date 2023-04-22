@@ -1,66 +1,70 @@
 <section class="container-fluid">
-  <div class="company-logo">
-    <a href="https://requesttalk.netlify.app" target="_blank"><img src="https://requesttalk.netlify.app/assets/images/RequestTalkWhite.svg" alt=""></a>
-  </div>
+ 
     <div class="row">
-        <div class="col-lg-7 col-md-7 col-sm-12 vh-100 text-light d-flex align-items-center d-flex justify-content-center area" >
+        <div class="col-lg-7 col-md-7 col-sm-12 vh-100 text-light d-flex align-items-center d-flex justify-content-center area order-lg-1 order-2" >
             <div class="w-75 intro">
               <h1 class="mb-4">Schedule meetings without the email tennis</h1>
               <div>
-                <h3>Connect your calendar</h3>
+                <h3><img src="https://th.bing.com/th/id/R.5c9453dd0b7806a876ceca3148a6e8c0?rik=oBNBUOf%2b6UkYpw&riu=http%3a%2f%2fclipart-library.com%2fnew_gallery%2f36-364069_white-check-mark-circle.png&ehk=D2OC4QcxCeyass3B2vRMD1CHwfK2ddEIohIoOgQ8Fv4%3d&risl=&pid=ImgRaw&r=0" width="20" alt=""> Connect your calendar</h3>
                 <p>RequestTalk connects with Google and reads your availability from all your existing calendars ensuring you never get double booked!</p>
               </div>
               <div>
-                <h3>Set your availability</h3>
+                <h3><img src="https://th.bing.com/th/id/R.5c9453dd0b7806a876ceca3148a6e8c0?rik=oBNBUOf%2b6UkYpw&riu=http%3a%2f%2fclipart-library.com%2fnew_gallery%2f36-364069_white-check-mark-circle.png&ehk=D2OC4QcxCeyass3B2vRMD1CHwfK2ddEIohIoOgQ8Fv4%3d&risl=&pid=ImgRaw&r=0" width="20" alt=""> Set your availability</h3>
                 <p>Set repeating schedules for the times of the day and week that you want people to be able to book you.</p>
               </div>
               <div>
-                <h3>Share your link</h3>
+                <h3><img src="https://th.bing.com/th/id/R.5c9453dd0b7806a876ceca3148a6e8c0?rik=oBNBUOf%2b6UkYpw&riu=http%3a%2f%2fclipart-library.com%2fnew_gallery%2f36-364069_white-check-mark-circle.png&ehk=D2OC4QcxCeyass3B2vRMD1CHwfK2ddEIohIoOgQ8Fv4%3d&risl=&pid=ImgRaw&r=0" width="20" alt=""> Share your link</h3>
                 <p>Share your short RequestTalk personal link and make it incredibly easy for people to book a meeting at a time that works for both of you!</p>
               </div>
               
             </div>
                   </div>
         <div
-            class="col-lg-5 col-md-5 col-sm-12 d-flex align-items-center justify-content-center my-5 py-lg-0 py-md-0 py-5">
-            <div class="card ">
+            class="col-lg-5 col-md-5 col-sm-12 d-flex align-items-center justify-content-center my-5 py-lg-0 py-md-0 py-5 order-lg-2 order-1">
+           <div>
+            <div class="company-logo text-center">
+              <a href="https://requesttalk.netlify.app" target="_blank"><img src="https://requesttalk.netlify.app/assets/images/RequestTalk.svg" alt=""></a>
+            </div>
+            <div class="card mt-5">
 
-                <div class="card-body">
-                    <form  #loginUser="ngForm" (ngSubmit)="loginUserFunc(loginUser)" class="needs-validation" novalidate="">
-                        <div class="mb-3">
-                          <label for="emailAdderss" class="form-label">Email Address</label>
-                          <input type="email" name="emailAdderss"  #emailAdderssRef="ngModel"  class="form-control "  ngModel required>
-                          <div *ngIf="emailAdderssRef.errors && (emailAdderssRef.dirty || emailAdderssRef.touched)" style="text-align:left; color:red;">
-                            <div [hidden]="!emailAdderssRef.errors">
-                              <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
-           
-                            </div>
+              <div class="card-body">
+                  <form  #loginUser="ngForm" (ngSubmit)="loginUserFunc(loginUser)" class="needs-validation" novalidate="">
+                      <div class="mb-3">
+                        <label for="emailAdderss" class="form-label">Email Address</label>
+                        <input type="email" name="emailAdderss"  #emailAdderssRef="ngModel"  class="form-control "  ngModel required>
+                        <div *ngIf="emailAdderssRef.errors && (emailAdderssRef.dirty || emailAdderssRef.touched)" style="text-align:left; color:red;">
+                          <div [hidden]="!emailAdderssRef.errors">
+                            <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+         
                           </div>
                         </div>
-                        <div class="mb-3">
-                          <label for="password" class="form-label">Password</label>
-                          <input type="password"name="password"   #passwordRef="ngModel"  class="form-control "  ngModel required >
-                          <div *ngIf="passwordRef.errors && (passwordRef.dirty || passwordRef.touched)" style="text-align:left; color:red;">
-                            <div [hidden]="!passwordRef.errors">
-                              <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
-           
-                            </div>
-                          </div>
                       </div>
-                      <button type="submit" class="btn btn-dark col-12" [disabled]="!loginUser.form.valid">Login to your account</button>
-                      </form>
-                    <div>
-                        <p class="pt-3">Don't have an account ? <span><a href="signup">Sign Up</a></span> </p>
-                        <p class="">Forgot Password ? <span> <a href="reset-password">Click Here</a></span> </p>
-
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password"name="password"   #passwordRef="ngModel"  class="form-control "  ngModel required >
+                        <div *ngIf="passwordRef.errors && (passwordRef.dirty || passwordRef.touched)" style="text-align:left; color:red;">
+                          <div [hidden]="!passwordRef.errors">
+                            <p class="mt-2"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-1 h-3 w-3" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Required</p>
+         
+                          </div>
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-dark col-12" [disabled]="!loginUser.form.valid">Login to your account</button>
+                    </form>
+                  <div>
+                      <p class="pt-3">Don't have an account ? <span><a href="signup">Sign Up</a></span> </p>
+                      <p class="">Forgot Password ? <span> <a href="reset-password">Click Here</a></span> </p>
+
+                  </div>
+              </div>
 
 
-                <div class="card-footer text-muted">
-                    <p>Log in to your account to get back to your hub for scheduling meetings.</p>
-                </div>
-            </div>
+              <div class="card-footer text-muted">
+                  <p>Log in to your account to get back to your hub for scheduling meetings.</p>
+              </div>
+          </div>
+           </div>
+          
         </div>
     </div>
 </section>

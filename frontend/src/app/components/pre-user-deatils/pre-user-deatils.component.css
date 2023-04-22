@@ -1,0 +1,10 @@
+
+.upload-img img{
+    width: 150px;
+    height: 150px;
+}
+label::after {
+    color: #0a66c2c1;
+    content: "\2A";
+    padding-left: 3px;
+}

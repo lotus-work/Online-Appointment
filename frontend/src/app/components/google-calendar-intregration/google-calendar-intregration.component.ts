@@ -12,9 +12,12 @@ declare var gapi: any;
 })
 export class GoogleCalendarIntregrationComponent implements OnInit {
 
+  isAbout :  string | null;
   isSignedIn = false;
 
-  constructor(private spinner: NgxSpinnerService,private zone: NgZone, private _toast: NgToastService, private _router: Router) { }
+  constructor(private spinner: NgxSpinnerService,private zone: NgZone, private _toast: NgToastService, private _router: Router) { 
+    this.isAbout = localStorage.getItem('isAbout');
+  }
 
   async ngOnInit() {
     await this.loadGapi();
@@ -53,10 +56,21 @@ export class GoogleCalendarIntregrationComponent implements OnInit {
         this.spinner.hide();
       }, 1000);
       this._toast.success({ detail: "SUCCESS", summary: 'Integrated Google Calendar ', position: 'br' });
+
+      
+    if(this.isAbout == "true")
+    {
       this._router.navigate(['/home'])
         .then(() => {
           window.location.reload();
         });
+    }else{
+      this._router.navigate(['/onboarding'])
+      .then(() => {
+        window.location.reload();
+      });
+    }
+      
     }
     if (isSignedIn == false) {
       setTimeout(() => {

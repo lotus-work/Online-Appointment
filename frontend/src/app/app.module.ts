@@ -25,6 +25,7 @@ import { EditAvailabilityComponent } from './components/edit-availability/edit-a
 import { ProfileBookingComponent } from './components/profile-booking/profile-booking.component';
 import { SuccessBookingComponent } from './components/success-booking/success-booking.component';
 import { EventBookingComponent } from './components/event-booking/event-booking.component';
+import { PreUserDeatilsComponent } from './components/pre-user-deatils/pre-user-deatils.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { EventBookingComponent } from './components/event-booking/event-booking.
     EditAvailabilityComponent,
     ProfileBookingComponent,
     SuccessBookingComponent,
-    EventBookingComponent
+    EventBookingComponent,
+    PreUserDeatilsComponent
   ],
   imports: [
     BrowserModule,

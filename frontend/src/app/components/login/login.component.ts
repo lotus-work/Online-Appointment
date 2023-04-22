@@ -39,7 +39,12 @@ export class LoginComponent {
           localStorage.setItem("fullName", String(this.userDetails[0].fullName));
           localStorage.setItem("emailAddress", String(this.userDetails[0].emailAddress));
           localStorage.setItem("profilePicture", String(this.userDetails[0].profilePicture));
-
+          if(this.userDetails[0].about.length > 0)
+          {
+            localStorage.setItem("isAbout", String("true"));
+          }else{
+            localStorage.setItem("isAbout", String("false"));
+          }
           this._toast.success({ detail: "LOGIN SUCCESS", summary: 'Redirecting to home page', position: 'br' });
 
           setTimeout(() => {

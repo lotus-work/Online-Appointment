@@ -60,6 +60,12 @@ export class UserService {
       timezone:timezone 
     }).pipe(catchError(this.errorHandler));
   }
+  updateOnboardingUserData(id:string, about:string, timezone:string): Observable<boolean> {
+    return this.http.put<boolean>(this.user_api_url + "/update/onboarding/userData/" + id, { 
+      about:about,   
+      timezone:timezone 
+    }).pipe(catchError(this.errorHandler));
+  }
   updateUserProfilePicture(id: string, userProfilePicture: string): Observable<boolean> {
     return this.http.patch<boolean>(this.user_api_url + "/update/profilePicture/" + id, {
       profilePicture: userProfilePicture
