@@ -5,9 +5,12 @@ const Event = require('../models/event');
 
 
 // GET PUBLIC USER AVAILIBITY
-router.get('/get/public/:userId/:url', async(req,res)=>{
+router.get('/get/public/:userId/:url', async (req, res) => {
     try {
-        const event = await Event.find({ userId: req.params.userId, url: req.params.url });
+        const event = await Event.find({
+            userId: req.params.userId,
+            url: req.params.url
+        });
         res.json(event);
 
     } catch (err) {
@@ -18,7 +21,9 @@ router.get('/get/public/:userId/:url', async(req,res)=>{
 // ALL EVENT BY USERID
 router.get('/get/all/:userId', async (req, res) => {
     try {
-        const event = await Event.find({ userId: req.params.userId });
+        const event = await Event.find({
+            userId: req.params.userId
+        });
         res.json(event)
 
     } catch (err) {
@@ -29,7 +34,10 @@ router.get('/get/all/:userId', async (req, res) => {
 // ALL EVENT BY USERID && EVENT ID
 router.get('/get/all/:userId/:eventId', async (req, res) => {
     try {
-        const event = await Event.find({ userId: req.params.userId, _id: req.params.eventId });
+        const event = await Event.find({
+            userId: req.params.userId,
+            _id: req.params.eventId
+        });
         res.json(event)
 
     } catch (err) {
@@ -50,21 +58,34 @@ router.post('/add', async (req, res) => {
             length: req.body.length,
             availabilityId: req.body.availabilityId,
             description: req.body.description,
-            location: req.body.location
+            location: req.body.location,
+
+            optInBooking: "No",
+            disableGuests: "Yes",
+            hideEventType: "No",
+            timeSlotIntervals: 0
         })
         await event.save();
-        return res.json([{ success: true, message: 'Event added successfully' }]);
+        return res.json([{
+            success: true,
+            message: 'Event added successfully'
+        }]);
 
 
     } catch (error) {
-        return res.status(500).json([{ success: false, message: error.toString() }]);
+        return res.status(500).json([{
+            success: false,
+            message: error.toString()
+        }]);
     }
 });
 
 //  UPDATE AVAILIBITY
 router.put('/update', async (req, res) => {
     try {
-        const event = await Event.findById({_id: req.body.eventId });
+        const event = await Event.findById({
+            _id: req.body.eventId
+        });
         event.title = req.body.title;
         event.description = req.body.description;
         event.location = req.body.location;
@@ -76,7 +97,7 @@ router.put('/update', async (req, res) => {
         event.disableGuests = req.body.disableGuests;
         event.hideEventType = req.body.hideEventType;
         event.timeSlotIntervals = req.body.timeSlotIntervals;
-        
+
 
         const e1 = await event.save();
 

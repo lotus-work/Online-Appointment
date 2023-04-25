@@ -2,17 +2,22 @@ const express = require('express')
 const nodemailer = require('nodemailer')
 const app = express()
 const cors = require('cors')
-const dotenv = require('dotenv').config();
+const bodyParser = require('body-parser')
+const moment = require('moment');
 
-const port = 3000
-app.use(cors())
+const port = 3000;
+app.use(cors());
+require('dotenv').config();
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json());
+
 app.get('/sendmail', (req, res) => {
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: "requesttalkservice@gmail.com",
-            pass: "rhxeqhelteeorczu"
+            user: process.env.EMAIL,
+            pass: process.env.PASS
 
         }
     });
@@ -39,6 +44,49 @@ app.get('/sendmail', (req, res) => {
     res.send(true);
 })
 
+app.post('/onlogindeviceinfo', (req, res) => {
+    console.log(req.body[0]);
+    var currentDate  =  moment.utc(req.body[0].loginDate).format('MMMM Do YYYY'); ;
+    var userLocation  = req.body[0].location[0].city + ", " + req.body[0].location[0].region + ", " + req.body[0].location[0].country;
+    var userTimezone  = req.body[0].location[0].timezone;
+    var userIP  = req.body[0].location[0].ip;
+    var userName  = req.body[0].userName;
+    
+    var browser  = req.body[0].browserInfo;
+    var operatingSystem  = req.body[0].operatingSystem;
+    
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASS
+
+        }
+    });
+    // console.log(req.body);
+
+    var mailOptions = {
+        from: 'RequestTalk <requesttalkservice@gmail.com>',
+        to: req.body[0].emailAddress,
+        subject: 'Sign in alert for your RequestTalk account',
+         html: `<!doctype html> <html lang="en-US"> <head> <meta content="text/html; charset=utf-8" http-equiv="Content-Type" /> <title>DEVICE INFO</title> <meta name="description" content="DEVICE INFO"> </head> <body> <p><span style="font-family: 'times new roman', times;">Hi ` + userName + `,</span></p> <p><span style="font-family: 'times new roman', times;">Someone just sign-in to your RequestTalk account and want to be sure it's you:</span></p> <p><span style="font-family: 'times new roman', times;"><strong>Signin Details:  </strong></span></p> <p><span style="font-family: 'times new roman', times;"><strong>Date:</strong> ` + currentDate + `</span></p> <p><span style="font-family: 'times new roman', times;"><strong>Approximate Location:</strong> ` + userLocation + `</span></p> <p><span style="font-family: 'times new roman', times;"><strong>Timezone:</strong> ` + userTimezone + `</span></p> <p><span style="font-family: 'times new roman', times;"><strong>IP Address:</strong> ` + userIP + `</span></p> <p><span style="font-family: 'times new roman', times;"><strong>Browser:</strong> ` + browser + `</span></p> <p><span style="font-family: 'times new roman', times;"><strong>Operating System:</strong> ` + operatingSystem + `</span></p> <p><span style="font-family: 'times new roman', times;">If you recognize this activity, you can disregard this email. If this wasn't you, please <a href="#">click here</a> to reset your password immediately. </p> <p><span style="font-family: 'times new roman', times;">Thanks,<br />The RequestTalk Team</span></p> </body> </html>`
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            return res.send(JSON.stringify({ status: "false" }));
+
+        } else {
+            res.send(JSON.stringify({ status: "true" }));
+            return console.log('Email sent: ' + info.response);
+
+        }
+    });
+    res.send(true);
+    console.log('Login Alert Info Email sent');
+});
 
 app.get('/resetMail', (req, res) => {
 

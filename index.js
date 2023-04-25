@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const url = 'mongodb+srv://lotusbiswas:lotusbiswas@cluster0.1zfsoap.mongodb.net/requesttalk'
 // const url = 'mongodb://localhost:27017/newCollection'
 
+require('dotenv').config();
 // Initliaze express server 
 const app = express();app.use(cors());
 app.use(bodyParser.urlencoded({  useNewUrlParser: true,

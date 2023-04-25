@@ -18,7 +18,7 @@ button{
   border-radius: 120px;
 }
 
-h1,h2,h3,h4,h5, .imp-head,.form-label{
+h1,h2,h3,h4,h5, .imp-head, label{
     font-family: 'Domine', serif;
 }
 

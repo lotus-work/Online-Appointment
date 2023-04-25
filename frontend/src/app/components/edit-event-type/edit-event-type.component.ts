@@ -31,7 +31,7 @@ export class EditEventTypeComponent {
   // ];
 
   locationArr = [
-    { id: 1, label: "Jitsi Meet", status: "true" },
+    { id: 1, label: "Jitsi Meet", status: "false" },
     { id: 2, label: "Google Meet", status: "false" },
     
   ];
@@ -65,6 +65,8 @@ export class EditEventTypeComponent {
   ngOnInit(): void {
     this.getAllAvaibility();
     this.getEventDetails();
+    
+    console.log(this.locationArr);
   }
 
 
@@ -124,6 +126,36 @@ export class EditEventTypeComponent {
         this.eventDetails = res;
         console.log(this.eventDetails);
         
+   // Setting avaibility from db to frontend
+   for(var i =0;i<this.avaibility.length;i++)
+   {
+     if(this.avaibility[i].availabilityId == this.eventDetails[0].availabilityId)
+     {
+       this.avaibility[i].status = "true";
+     }
+   }
+   
+   // Setting location from db to frontend
+   for(var i =0;i<this.locationArr.length;i++)
+   {
+     console.log(this.eventDetails[0].location);
+     if(this.locationArr[i].label == this.eventDetails[0].location)
+     {
+       this.locationArr[i].status = "true";
+     }
+     console.log(this.locationArr);
+   }
+
+   // Setting interval from db to frontend
+   for(var i =0;i<this.intervalArr.length;i++)
+   {
+     if(this.intervalArr[i].duration == this.eventDetails[0].timeSlotIntervals)
+     {
+       this.intervalArr[i].status = "true";
+     }
+   }
+  
+
         // CheckBox Pre Check
 
     
@@ -152,33 +184,7 @@ export class EditEventTypeComponent {
         }
         
 
-        // Setting avaibility from db to frontend
-        for(var i =0;i<this.avaibility.length;i++)
-        {
-          if(this.avaibility[i].availabilityId == this.eventDetails[0].availabilityId)
-          {
-            this.avaibility[i].status = "true";
-          }
-        }
-        
-        // Setting location from db to frontend
-        for(var i =0;i<this.locationArr.length;i++)
-        {
-          if(this.locationArr[i].label == this.eventDetails[0].location)
-          {
-            this.locationArr[i].status = "true";
-          }
-        }
-
-        // Setting interval from db to frontend
-        for(var i =0;i<this.intervalArr.length;i++)
-        {
-          if(this.intervalArr[i].duration == this.eventDetails[0].timeSlotIntervals)
-          {
-            this.intervalArr[i].status = "true";
-          }
-        }
-       
+     
         
 
 
@@ -193,6 +199,7 @@ export class EditEventTypeComponent {
         console.log(this.errMsg)
       }, () => console.log("Get All Events method excuted successfully"))
   }
+
   updateEventDetails(updateForm: NgForm)
   {
     this.spinner.show();
